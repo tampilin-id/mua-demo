@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="id" data-tema="ivory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--SEO-->
+<title>Sekar Ayu Makeup &amp; Bridal — Rias Pengantin Malang</title>
+<meta name="description" content="Rias pengantin adat Jawa, Sunda, dan modern. Lengkap dengan busana dan aksesori.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Sekar Ayu">
+<meta property="og:title" content="Sekar Ayu Makeup &amp; Bridal — Rias Pengantin Malang">
+<meta property="og:description" content="Rias pengantin adat Jawa, Sunda, dan modern. Lengkap dengan busana dan aksesori.">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sekar Ayu Makeup &amp; Bridal — Rias Pengantin Malang">
+<meta name="twitter:description" content="Rias pengantin adat Jawa, Sunda, dan modern. Lengkap dengan busana dan aksesori.">
+<meta name="twitter:image" content="assets/og.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BeautySalon", "name": "Sekar Ayu Makeup & Bridal", "description": "Rias pengantin adat Jawa, Sunda, dan modern. Lengkap dengan busana dan aksesori.", "telephone": "+6281234567890", "image": "assets/og.jpg", "address": {"@type": "PostalAddress", "streetAddress": "Jl. Ijen No. 12, Klojen, Kota Malang", "addressLocality": "Malang", "addressCountry": "ID"}, "sameAs": ["https://instagram.com/sekarayu.bridal"], "openingHours": "Senin–Sabtu, 09.00–17.00 (konsultasi dengan janji)", "hasMap": "https://www.google.com/maps/search/?api=1&query=Jl.+Ijen+No.+12,+Klojen,+Kota+Malang,+Malang"}</script>
+<!--/SEO-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="#awal"><span data-bind="brand.nama"></span><small data-bind="brand.sub"></small></a>
+    <nav class="nav" aria-label="Menu utama">
+      <a href="#koleksi">Koleksi</a>
+      <a href="#paket">Paket</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#booking">Booking</a>
+    </nav>
+    <a class="btn btn-kecil" id="wa-top" href="#" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</header>
+
+<main id="awal">
+
+  <!-- HERO: sebelum / sesudah -->
+  <section class="hero">
+    <div class="hero-teks">
+      <p class="hero-kota"><span data-bind="brand.sub"></span>, <span data-bind="brand.kota"></span></p>
+      <h1 data-bind="hero.judul"></h1>
+    </div>
+    <div class="ba" id="ba" style="--pos:50%">
+      <img class="ba-img" id="ba-sesudah" alt="Wajah sesudah dirias" draggable="false" fetchpriority="high" decoding="async">
+      <div class="ba-atas"><img class="ba-img" id="ba-sebelum" alt="Wajah sebelum dirias" draggable="false" fetchpriority="high" decoding="async"></div>
+      <div class="ba-garis" aria-hidden="true"><span class="ba-pegangan"></span></div>
+      <span class="ba-label ba-label-kiri">Sebelum</span>
+      <span class="ba-label ba-label-kanan">Sesudah</span>
+      <input class="ba-range" id="ba-range" type="range" min="0" max="100" value="50" aria-label="Geser untuk membandingkan sebelum dan sesudah dirias">
+    </div>
+    <div class="hero-samping">
+      <p class="hero-ket"><span data-bind="hero.keterangan"></span><span class="hero-petunjuk">Geser garis di foto untuk melihat sebelum dan sesudah dirias.</span></p>
+      <div class="hero-aksi">
+        <a class="btn" href="#booking">Cek tanggal kosong</a>
+        <a class="btn btn-garis" href="#koleksi">Lihat koleksi busana</a>
+      </div>
+      <ul class="hero-bukti" id="hero-bukti" aria-label="Bukti pengalaman" hidden></ul>
+    </div>
+  </section>
+
+  <!-- TENTANG -->
+  <section class="blok tentang" id="tentang">
+    <div class="isi tentang-grid">
+      <h2>Tentang <span data-bind="brand.nama"></span></h2>
+      <div class="tentang-teks" id="tentang-teks"></div>
+      <ul class="keahlian" id="keahlian" aria-label="Keahlian"></ul>
+    </div>
+  </section>
+
+  <!-- PAKET -->
+  <section class="blok" id="paket">
+    <div class="isi">
+      <h2>Paket layanan</h2>
+      <p class="sub">Harga mulai dari. Detail akhir menyesuaikan lokasi dan jumlah orang yang dirias.</p>
+      <div class="paket" id="paket-list"></div>
+    </div>
+  </section>
+
+  <!-- KOLEKSI: barisan look -->
+  <section class="look" id="koleksi" aria-roledescription="carousel" aria-label="Pilihan look pengantin">
+    <div class="look-wrap">
+      <div class="look-stage" id="look-stage">
+        <div class="look-head">
+          <h2>Pilih look-nya</h2>
+          <p>Ketuk pengantin di samping untuk berganti look. Ketuk yang di tengah untuk melihat lebih dekat.</p>
+        </div>
+        <div class="look-track" id="look-track"></div>
+        <div class="look-fokus" id="look-fokus" hidden>
+          <p><span id="lf-nomor"></span> <strong id="lf-nama"></strong></p>
+          <button class="ikon" id="lf-tutup" type="button" aria-label="Kembali ke semua look">×</button>
+        </div>
+        <div class="look-nav">
+          <button class="ikon" id="look-prev" type="button" aria-label="Look sebelumnya">‹</button>
+          <p class="look-hitung" id="look-hitung" aria-live="polite"></p>
+          <button class="ikon" id="look-next" type="button" aria-label="Look berikutnya">›</button>
+          <button class="ikon ikon-kecil" id="look-jeda" type="button" aria-label="Jeda pergantian otomatis" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="i-jeda"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="i-putar"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+      </div>
+      <aside class="look-side" id="look-side" aria-live="polite">
+        <p class="look-side-judul">Dalam look ini</p>
+        <div class="look-side-isi" id="look-side-isi">
+          <p class="look-kat" id="ls-kat"></p>
+          <h3 id="ls-nama"></h3>
+          <p class="look-ringkas" id="ls-ringkas"></p>
+          <ul class="look-items" id="ls-items"></ul>
+          <p class="look-harga" id="ls-harga"></p>
+          <a class="btn btn-lebar" id="ls-wa" href="#" target="_blank" rel="noopener">Tanya look ini via WhatsApp</a>
+          <button class="link-kecil ls-bagikan" id="ls-bagikan" type="button">Bagikan link look ini</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- KUIS: look mana yang cocok -->
+  <section class="blok kuis-blok" id="kuis" hidden aria-labelledby="kuis-judul">
+    <div class="isi kuis-isi">
+      <p class="kicker">Bingung pilih?</p>
+      <h2 id="kuis-judul">Look mana yang cocok untukmu?</h2>
+      <p class="sub" id="kuis-sub"></p>
+      <div class="kuis" id="kuis-box"></div>
+    </div>
+  </section>
+
+  <!-- AKSESORI -->
+  <section class="blok" id="aksesori">
+    <div class="isi">
+      <h2>Aksesori</h2>
+      <p class="sub">Termasuk dalam paket adat. Bisa juga disewa terpisah.</p>
+      <div class="aks" id="aks-list"></div>
+    </div>
+  </section>
+
+  <!-- GALERI -->
+  <section class="blok" id="galeri">
+    <div class="isi">
+      <h2>Galeri pengantin</h2>
+      <div class="galeri-filter" id="galeri-filter" role="group" aria-label="Filter galeri" hidden></div>
+      <div class="galeri" id="galeri-list"></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONI -->
+  <section class="blok testi-blok">
+    <div class="isi testi" id="testi-list"></div>
+    <div class="isi testi-shot-wrap" id="testi-shot-wrap" hidden>
+      <h3>Kata mereka lewat chat</h3>
+      <div class="testi-shot" id="testi-shot"></div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="blok booking" id="booking">
+    <div class="isi booking-grid">
+      <div>
+        <h2>Booking</h2>
+        <p class="sub" id="booking-sub"></p>
+        <div class="kal" id="kal" hidden>
+          <div class="kal-head">
+            <button class="ikon" id="kal-prev" type="button" aria-label="Bulan sebelumnya">‹</button>
+            <p class="kal-bulan" id="kal-bulan" aria-live="polite"></p>
+            <button class="ikon" id="kal-next" type="button" aria-label="Bulan berikutnya">›</button>
+          </div>
+          <div class="kal-hari" aria-hidden="true"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+          <div class="kal-grid" id="kal-grid" role="grid"></div>
+          <p class="kal-legenda"><span class="dot dot-kosong"></span>Kosong <span id="legenda-sebagian" hidden><span class="dot dot-sebagian"></span>Tinggal sedikit</span> <span class="dot dot-penuh"></span>Sudah penuh</p>
+        </div>
+      </div>
+      <form class="form" id="form-booking" novalidate>
+        <div class="field" id="field-tanggal">
+          <label for="f-tanggal">Tanggal acara</label>
+          <input id="f-tanggal" name="tanggal" type="date" required aria-describedby="tanggal-info">
+          <p class="field-info" id="tanggal-info"></p>
+        </div>
+        <div class="field">
+          <label for="f-paket">Paket</label>
+          <select id="f-paket" name="paket"></select>
+        </div>
+        <div class="field">
+          <label for="f-nama">Nama</label>
+          <input id="f-nama" name="nama" type="text" autocomplete="name" placeholder="Nama calon pengantin" required aria-describedby="nama-err">
+          <p class="field-error" id="nama-err" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="f-lokasi">Lokasi acara</label>
+          <input id="f-lokasi" name="lokasi" type="text" placeholder="Contoh: Gedung Graha Cakrawala, Malang">
+        </div>
+        <div class="field">
+          <label for="f-catatan">Catatan <span class="opsional">(opsional)</span></label>
+          <textarea id="f-catatan" name="catatan" rows="3" placeholder="Adat yang diinginkan, jumlah orang yang dirias, dll."></textarea>
+        </div>
+        <p class="form-error" id="form-error" role="alert"></p>
+        <button class="btn btn-lebar" type="submit">Kirim ke WhatsApp</button>
+        <p class="form-catatan">Pesan akan terbuka di WhatsApp. Tanggal baru terkunci setelah DP.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- PERSIAPAN: jam mulai rias + checklist -->
+  <section class="blok persiapan" id="persiapan" hidden aria-labelledby="persiapan-judul">
+    <div class="isi">
+      <p class="kicker">Untuk calon pengantin</p>
+      <h2 id="persiapan-judul">Persiapan hari H</h2>
+      <p class="sub">Dua alat kecil supaya pagi hari H tenang dan kulit siap dirias.</p>
+      <div class="tab persiapan-tab" role="tablist" aria-label="Alat persiapan">
+        <button type="button" role="tab" id="pt-jadwal" aria-selected="true" aria-controls="pp-jadwal">Jam mulai rias</button>
+        <button type="button" role="tab" id="pt-cek" aria-selected="false" aria-controls="pp-cek" tabindex="-1">Checklist perawatan</button>
+      </div>
+
+      <div class="pp" id="pp-jadwal" role="tabpanel" aria-labelledby="pt-jadwal">
+        <div class="pp-grid">
+          <form class="form jadwal-form" id="jadwal-form" novalidate>
+            <div class="field"><label for="j-jam">Jam acara dimulai</label><input type="time" id="j-jam" value="08:00" step="300"></div>
+            <div class="field"><label for="j-rias">Jenis riasan</label><select id="j-rias"></select></div>
+            <div class="field"><label for="j-ortu">Keluarga yang ikut dirias</label>
+              <select id="j-ortu"><option value="0">Tidak ada</option><option value="1">1 orang</option><option value="2" selected>2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option><option value="6">6 orang</option></select></div>
+            <p class="form-catatan">Perkiraan. Jam pasti dikonfirmasi tim kami.</p>
+          </form>
+          <div>
+            <ol class="timeline" id="j-hasil" aria-live="polite"></ol>
+            <div class="jadwal-aksi">
+              <a class="btn" id="j-konfirmasi" href="#" target="_blank" rel="noopener">Konfirmasi jadwal ini via WA</a>
+              <a class="btn btn-garis" id="j-bagikan" href="#" target="_blank" rel="noopener">Bagikan ke keluarga</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pp" id="pp-cek" role="tabpanel" aria-labelledby="pt-cek" hidden>
+        <div class="cek-atas">
+          <div class="field"><label for="c-tgl">Tanggal acara <span class="opsional">(opsional, untuk menampilkan tanggal tiap tahap)</span></label><input type="date" id="c-tgl"></div>
+          <p class="cek-progres"><strong id="c-jumlah">0</strong> <span id="c-dari"></span><span class="cek-bar"><i id="c-bar"></i></span></p>
+        </div>
+        <div class="cek-list" id="c-list"></div>
+        <p class="form-catatan cek-catatan">Centangmu tersimpan di HP ini saja.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="blok" id="faq">
+    <div class="isi faq-isi">
+      <h2>Pertanyaan yang sering ditanyakan</h2>
+      <div class="faq" id="faq-list"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="kaki">
+  <div class="isi kaki-grid">
+    <div>
+      <p class="kaki-logo"><span data-bind="brand.nama"></span></p>
+      <p data-bind="brand.tagline"></p>
+    </div>
+    <div>
+      <p data-bind="brand.alamat"></p>
+      <p data-bind="brand.jamBuka"></p>
+    </div>
+    <div class="kaki-link">
+      <a id="wa-foot" href="#" target="_blank" rel="noopener">WhatsApp <span id="wa-nomor"></span></a>
+      <a id="ig-foot" href="#" target="_blank" rel="noopener">Instagram @<span data-bind="brand.instagram"></span></a>
+      <a id="maps-foot" href="#" target="_blank" rel="noopener">Lihat di Google Maps</a>
+    </div>
+  </div>
+</footer>
+
+<div class="cta-bar" id="cta-bar">
+  <a class="btn" href="#booking">Cek tanggal kosong</a>
+  <a class="cta-wa" id="wa-bar" href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.5-.3Z"/></svg></a>
+</div>
+
+<a class="wa-float" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.5-.3Z"/></svg>
+</a>
+
+<!-- Panel detail busana -->
+<div class="panel-latar" id="panel-latar" hidden></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="p-nama" hidden>
+  <button class="panel-tutup" id="panel-tutup" type="button">Tutup <span aria-hidden="true">×</span></button>
+  <div class="panel-isi">
+    <p class="rak-nomor" id="p-nomor"></p>
+    <h3 id="p-nama"></h3>
+    <p id="p-desk"></p>
+    <dl class="spek">
+      <dt>Warna</dt><dd id="p-warna"></dd>
+      <dt>Ukuran</dt><dd id="p-ukuran"></dd>
+      <dt>Sewa</dt><dd id="p-harga"></dd>
+    </dl>
+    <div class="tab" role="tablist" aria-label="Foto busana">
+      <button role="tab" type="button" data-foto="dipakai" aria-selected="true">Dipakai</button>
+      <button role="tab" type="button" data-foto="belakang" aria-selected="false">Belakang</button>
+      <button role="tab" type="button" data-foto="detail" aria-selected="false">Detail bordir</button>
+    </div>
+    <div class="tab-foto"><img id="p-foto" alt=""></div>
+    <a class="btn btn-lebar" id="p-wa" href="#" target="_blank" rel="noopener">Tanya busana ini via WhatsApp</a>
+  </div>
+</aside>
+
+<!-- Panel demo (hanya tampil jika modeDemo: true) -->
+<details class="demo" id="demo" hidden>
+  <summary>Demo</summary>
+  <div class="demo-isi">
+    <p class="demo-judul">Pilih tema</p>
+    <div class="demo-tema" id="demo-tema"></div>
+    <p class="demo-judul">Paket</p>
+    <div class="demo-paket" id="demo-paket" role="group" aria-label="Pilih paket"></div>
+    <p class="demo-paket-isi" id="demo-paket-isi"></p>
+    <a class="demo-admin" id="demo-admin" href="admin.html" target="_blank" rel="noopener">Buka halaman admin (PIN 1234) ↗</a>
+  </div>
+</details>
+
+<script src="data.js"></script>
+<script src="fitur.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

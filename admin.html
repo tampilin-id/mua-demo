@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="id" data-tema="ivory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  .admin { max-width: 520px; margin: 0 auto; padding: 40px max(16px, env(safe-area-inset-right, 0px)) 80px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 20px; }
+  .admin h1 { font-size: 2.4rem; }
+  .admin .kal { margin-top: 0; max-width: none; }
+  .admin .kal-grid button:disabled { opacity: .35; }
+  .admin .kal-grid button.penuh { text-decoration: line-through; background: var(--ink); color: var(--bg); opacity: 1; }
+  .status { font-size: 14px; color: var(--muted); min-height: 1.4em; }
+  .baris { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .link { background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; font: inherit; font-size: 14px; min-height: 44px; display: inline-flex; align-items: center; padding: 0 4px; }
+  .daftar { font-size: 14px; color: var(--muted); }
+  .admin .kal-grid button.sebagian:not(:disabled) { border-color: var(--accent); }
+  .kuota { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--surface); padding: 14px; border-radius: 4px; }
+  .kuota p { margin: 0; }
+  .stepper { display: flex; align-items: center; gap: 12px; }
+  .stepper output { font: 400 1.5rem var(--f-display); min-width: 3.2em; text-align: center; font-variant-numeric: tabular-nums; }
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button { white-space: nowrap; background: none; border: 0; padding: 0 12px; min-height: 44px; font: 400 15px var(--f-body); color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; flex: none; }
+  .tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--accent); }
+  .banner { font-size: 13px; background: var(--surface); border-left: 3px solid var(--accent); padding: 10px 12px; margin: 0; }
+  .kartu-stat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .kartu-stat div { background: var(--surface); padding: 14px; border-radius: 4px; }
+  .kartu-stat strong { display: block; font: 400 2rem/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+  .kartu-stat span { font-size: 12px; color: var(--muted); }
+  .admin h2 { font-size: 1.4rem; margin: 20px 0 0; }
+  .grafik { display: flex; align-items: flex-end; gap: 2px; height: 140px; border-bottom: 1px solid var(--line); }
+  .grafik i { flex: 1; min-width: 2px; background: var(--accent); opacity: .85; border-radius: 2px 2px 0 0; display: block; }
+  .grafik i:hover { opacity: 1; }
+  .grafik-sumbu { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  .tbl th, .tbl td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  .tbl th { font-weight: 500; color: var(--muted); font-size: 12px; }
+  .tbl td:not(:first-child), .tbl th:not(:first-child) { text-align: right; }
+  .admin details summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; }
+  .admin select { font: inherit; min-height: 44px; padding: 0 10px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; }
+  .cek { display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--muted); min-height: 44px; }
+  .cek input { width: 20px; height: 20px; }
+  .opsional { color: var(--muted); font-size: 13px; }
+  .dua { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 480px) { .dua { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dua.tiga { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .tambahan { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0; display: grid; gap: 8px; }
+  .tambahan legend { font-size: 14px; color: var(--muted); padding: 0 6px; }
+  .x-baris { display: grid; grid-template-columns: minmax(0, 1fr) 120px 44px; gap: 8px; align-items: center; }
+  .x-baris input { font: inherit; min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); min-width: 0; }
+  .x-hapus { width: 44px; height: 44px; border: 0; background: none; color: var(--muted); font-size: 20px; cursor: pointer; }
+  .ringkas { background: var(--surface); border-radius: 4px; padding: 12px 14px; font-size: 14px; display: grid; gap: 4px; font-variant-numeric: tabular-nums; }
+  .ringkas div { display: flex; justify-content: space-between; gap: 12px; }
+  .ringkas strong { font-weight: 500; }
+  .hasil-link { display: grid; gap: 10px; background: var(--surface); padding: 16px; border-radius: 4px; }
+  .hasil-link input { font: 13px var(--f-body); min-height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); width: 100%; }
+  .baris-aksi { display: flex; flex-wrap: wrap; gap: 8px; }
+  .riwayat { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; font-size: 14px; }
+  .riwayat li { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); padding: 4px 0; }
+  .riwayat a { color: var(--accent); min-height: 44px; display: inline-flex; align-items: center; }
+</style>
+</head>
+<body>
+<main class="admin">
+  <div class="baris">
+    <h1 id="judul">Admin</h1>
+    <a class="link" href="index.html">Lihat website</a>
+  </div>
+
+  <!-- Login -->
+  <form class="form" id="login">
+    <p class="sub" id="login-info"></p>
+    <div class="field" id="f-email-wrap">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username" required>
+    </div>
+    <div class="field">
+      <label for="pass" id="pass-label">Kata sandi</label>
+      <input id="pass" type="password" autocomplete="current-password" required>
+    </div>
+    <p class="form-error" id="login-err" role="alert"></p>
+    <button class="btn btn-lebar" type="submit">Masuk</button>
+  </form>
+
+  <div class="tabs" role="tablist" id="tabs" hidden>
+    <button type="button" role="tab" id="tab-tgl" aria-selected="true" aria-controls="atur">Tanggal penuh</button>
+    <button type="button" role="tab" id="tab-stat" aria-selected="false" aria-controls="statistik">Statistik</button>
+    <button type="button" role="tab" id="tab-tawar" aria-selected="false" aria-controls="tawar">Penawaran</button>
+  </div>
+
+  <p class="sub" id="kosong" hidden>Paket website ini belum memakai fitur admin (kalender, statistik, atau penawaran). Hubungi pembuat website untuk menambahkannya.</p>
+
+  <!-- Penawaran pribadi -->
+  <section id="tawar" hidden aria-labelledby="tab-tawar">
+    <p class="sub">Buat halaman penawaran khusus untuk satu calon pengantin, lalu kirim link-nya lewat WhatsApp. Kamu bisa melihat kapan link dibuka di tab Statistik.</p>
+    <form class="form" id="f-tawar" novalidate>
+      <div class="field"><label for="tw-u">Nama pasangan</label><input id="tw-u" maxlength="60" placeholder="Rina &amp; Dimas" required>
+        <p class="field-error" id="tw-u-err"></p></div>
+      <div class="field"><label for="tw-hp">No. WhatsApp calon pengantin <span class="opsional">(opsional)</span></label><input id="tw-hp" type="tel" inputmode="tel" placeholder="0812..."></div>
+      <div class="dua">
+        <div class="field"><label for="tw-t">Tanggal acara</label><input id="tw-t" type="date"></div>
+        <div class="field"><label for="tw-l">Lokasi</label><input id="tw-l" maxlength="80" placeholder="Gedung / rumah, kota"></div>
+      </div>
+      <div class="field"><label for="tw-k">Look</label><select id="tw-k"></select></div>
+      <div class="dua">
+        <div class="field"><label for="tw-p">Paket</label><select id="tw-p"></select></div>
+        <div class="field"><label for="tw-h">Harga paket (Rp)</label><input id="tw-h" type="number" inputmode="numeric" min="0" step="50000"></div>
+      </div>
+      <fieldset class="tambahan"><legend>Tambahan <span class="opsional">(rias keluarga, sewa busana, transport, dll.)</span></legend>
+        <div id="tw-x"></div>
+        <button type="button" class="link" id="tw-x-tambah">+ Tambah item</button>
+      </fieldset>
+      <div class="dua tiga">
+        <div class="field"><label for="tw-d">Potongan (Rp)</label><input id="tw-d" type="number" inputmode="numeric" min="0" step="50000" value="0"></div>
+        <div class="field"><label for="tw-dp">DP (%)</label><input id="tw-dp" type="number" inputmode="numeric" min="0" max="100"></div>
+        <div class="field"><label for="tw-s">Berlaku (hari)</label><input id="tw-s" type="number" inputmode="numeric" min="1" max="90"></div>
+      </div>
+      <div class="field"><label for="tw-c">Pesan pribadi <span class="opsional">(opsional, tampil di halaman)</span></label><textarea id="tw-c" rows="3" maxlength="400" placeholder="Senang sekali bisa merias kalian..."></textarea></div>
+      <div class="ringkas" id="tw-ringkas" aria-live="polite"></div>
+      <button class="btn btn-lebar" type="submit">Buat link penawaran</button>
+    </form>
+    <div class="hasil-link" id="tw-hasil" hidden>
+      <label for="tw-link" class="sub">Link penawaran</label>
+      <input id="tw-link" readonly>
+      <div class="baris-aksi">
+        <button type="button" class="btn btn-kecil" id="tw-salin">Salin link</button>
+        <a class="btn btn-kecil" id="tw-kirim" href="#" target="_blank" rel="noopener">Kirim via WA</a>
+        <a class="btn btn-kecil btn-garis" id="tw-buka" href="#" target="_blank" rel="noopener">Pratinjau</a>
+      </div>
+      <p class="status" id="tw-status" role="status"></p>
+    </div>
+    <details id="tw-riwayat-box"><summary>Penawaran yang pernah dibuat di perangkat ini</summary><ul class="riwayat" id="tw-riwayat"></ul></details>
+  </section>
+
+  <!-- Statistik -->
+  <section id="statistik" hidden aria-labelledby="tab-stat">
+    <div class="baris">
+      <label for="rentang" class="sub">Periode</label>
+      <select id="rentang"><option value="7">7 hari terakhir</option><option value="30" selected>30 hari terakhir</option><option value="90">90 hari terakhir</option></select>
+    </div>
+    <p class="banner" id="st-demo" hidden>Ini <strong>data contoh</strong> untuk demo, ditambah aktivitas nyata di browser ini. Di situs klien, angkanya berasal dari pengunjung sungguhan.</p>
+    <p class="status" id="st-status" role="status"></p>
+    <div class="kartu-stat" id="kartu"></div>
+    <h2>Kunjungan per hari</h2>
+    <div class="grafik" id="grafik" role="img"></div>
+    <div class="grafik-sumbu" aria-hidden="true"><span id="g-awal"></span><span id="g-akhir"></span></div>
+    <h2>Yang paling banyak diklik</h2>
+    <table class="tbl" id="tbl-label"><thead><tr><th>Tombol / look</th><th>Jumlah</th></tr></thead><tbody></tbody></table>
+    <details><summary>Angka per hari</summary>
+      <table class="tbl" id="tbl-hari"><thead><tr><th>Tanggal</th><th>Kunjungan</th><th>Orang</th><th>Klik WA</th><th>Booking</th></tr></thead><tbody></tbody></table>
+    </details>
+    <label class="cek"><input type="checkbox" id="abaikan"> Jangan hitung kunjungan dari perangkat ini (untuk pemilik)</label>
+    <p class="daftar">Kunjungan dihitung sekali per sesi browser. &ldquo;Orang&rdquo; = pengunjung unik per hari (kode acak per browser, tanpa nama, nomor, atau IP).</p>
+    <div class="baris"><span></span><button class="link" id="keluar2" type="button">Keluar</button></div>
+  </section>
+
+  <!-- Kalender -->
+  <section id="atur" hidden>
+    <p class="sub" id="atur-info"></p>
+    <div class="kal">
+      <div class="kal-head">
+        <button class="ikon" id="prev" type="button" aria-label="Bulan sebelumnya">‹</button>
+        <p class="kal-bulan" id="bulan" aria-live="polite"></p>
+        <button class="ikon" id="next" type="button" aria-label="Bulan berikutnya">›</button>
+      </div>
+      <div class="kal-hari" aria-hidden="true"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div>
+      <div class="kal-grid" id="grid"></div>
+    </div>
+    <div class="kuota" id="kuota" hidden>
+      <p><strong id="kuota-tgl"></strong><br><span class="sub">Slot yang sudah terisi di tanggal ini</span></p>
+      <div class="stepper">
+        <button type="button" class="ikon" id="k-kurang" aria-label="Kurangi slot terisi">−</button>
+        <output id="k-nilai" aria-live="polite"></output>
+        <button type="button" class="ikon" id="k-tambah" aria-label="Tambah slot terisi">+</button>
+      </div>
+    </div>
+    <p class="status" id="status" role="status"></p>
+    <p class="daftar" id="daftar"></p>
+    <div class="baris"><span></span><button class="link" id="keluar" type="button">Keluar</button></div>
+  </section>
+</main>
+
+<script src="data.js"></script>
+<script src="fitur.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+(function () {
+  "use strict";
+  var S = window.SITE, B = S.booking, $ = function (s) { return document.querySelector(s); };
+  var F = window.MUA_FITUR ? window.MUA_FITUR.baca(S) : { kalender: true, kuota: true, statistik: true, penawaran: true };
+  document.documentElement.setAttribute("data-tema", S.tema);
+  var DEMO = !(B.supabaseUrl && B.supabaseAnonKey);
+  var DEMO_KEY = "mua_demo_tanggal_penuh", DEMO_PIN = "1234";
+  var BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  var view = new Date(), sb = null;
+  view.setDate(1);
+  var today = new Date(); today.setHours(0,0,0,0);
+  function iso(d) { return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+  function status(t) { $("#status").textContent = t; }
+
+  if (DEMO) {
+    $("#login-info").textContent = "Mode demo: Supabase belum diisi di data.js. Data tersimpan di browser ini saja. PIN demo: 1234.";
+    $("#f-email-wrap").hidden = true; $("#email").required = false;
+    $("#pass-label").textContent = "PIN";
+  } else {
+    sb = window.supabase.createClient(B.supabaseUrl, B.supabaseAnonKey);
+    $("#login-info").textContent = "Masuk dengan akun admin " + S.brand.nama + ".";
+    sb.auth.getSession().then(function (r) { if (r.data.session) mulai(); });
+  }
+
+  $("#login").addEventListener("submit", function (e) {
+    e.preventDefault(); var err = $("#login-err"); err.textContent = "";
+    if (DEMO) { if ($("#pass").value === DEMO_PIN) mulai(); else err.textContent = "PIN salah."; return; }
+    sb.auth.signInWithPassword({ email: $("#email").value, password: $("#pass").value }).then(function (r) {
+      if (r.error) err.textContent = "Email atau kata sandi salah."; else mulai();
+    });
+  });
+  $("#keluar").addEventListener("click", function () { if (sb) sb.auth.signOut(); location.reload(); });
+
+  /* ---------- tanggal & kuota ---------- */
+  var K = F.kuota ? Math.max(1, Number(B.kuotaPerHari) || 1) : 1, isi = new Map(), terpilih = "";   // isi: tanggal -> jumlah slot terisi
+  function peta(raw) {
+    if (Array.isArray(raw)) return new Map(raw.map(function (d) { return [d, K]; }));
+    return new Map(Object.keys(raw || {}).map(function (k) { return [k, Number(raw[k])]; }));
+  }
+  function ambil(kolom) {
+    return sb.from("tanggal_penuh").select(kolom).gte("tanggal", iso(today)).then(function (r) { if (r.error) throw r.error; return r.data; });
+  }
+  function muat() {
+    if (DEMO) {
+      var l = null; try { l = JSON.parse(localStorage.getItem(DEMO_KEY) || "null"); } catch (e) {}
+      isi = peta(l || B.tanggalPenuhDemo || []); return Promise.resolve();
+    }
+    return ambil("tanggal,terisi").catch(function () { return ambil("tanggal"); }).then(function (rows) {
+      isi = new Map(rows.map(function (x) { return [x.tanggal, x.terisi || K]; }));
+    }).catch(function (e) { status("Gagal memuat: " + e.message); });
+  }
+  function simpanDemo() {
+    var o = {}; Array.from(isi.keys()).sort().forEach(function (k) { o[k] = isi.get(k); });
+    try { localStorage.setItem(DEMO_KEY, JSON.stringify(o)); } catch (e) { status("Browser ini tidak mengizinkan penyimpanan."); }
+  }
+  function n(s) { return isi.get(s) || 0; }
+
+  /* ubah jumlah slot terisi di tanggal s menjadi jml (0 = buka kembali) */
+  function ubah(s, jml, btn) {
+    jml = Math.max(0, Math.min(K, jml));
+    if (btn) btn.disabled = true;
+    var done = function (err) {
+      if (btn) btn.disabled = false;
+      if (err) { status("Gagal menyimpan " + s + ": " + err.message); return; }
+      if (jml > 0) isi.set(s, jml); else isi.delete(s);
+      status(jml === 0 ? s + " dibuka kembali." : K > 1 ? s + ": terisi " + jml + " dari " + K + " slot" + (jml >= K ? " (penuh)." : ".") : s + " ditandai penuh.");
+      if (DEMO) simpanDemo();
+      render();
+    };
+    if (DEMO) return done(null);
+    var q = jml === 0 ? sb.from("tanggal_penuh").delete().eq("tanggal", s)
+                      : sb.from("tanggal_penuh").upsert({ tanggal: s, terisi: jml }, { onConflict: "tanggal" });
+    q.then(function (r) { done(r.error); });
+  }
+
+  function pilihTanggal(s, btn) {
+    if (K === 1) { ubah(s, n(s) ? 0 : 1, btn); return; }   // kuota 1: ketuk = penuh / buka
+    terpilih = s; render();
+  }
+  $("#k-kurang").addEventListener("click", function () { if (terpilih) ubah(terpilih, n(terpilih) - 1, this); });
+  $("#k-tambah").addEventListener("click", function () { if (terpilih) ubah(terpilih, n(terpilih) + 1, this); });
+
+  function render() {
+    var g = $("#grid"); g.textContent = "";
+    $("#bulan").textContent = BULAN[view.getMonth()] + " " + view.getFullYear();
+    var awal = (view.getDay() + 6) % 7, jml = new Date(view.getFullYear(), view.getMonth()+1, 0).getDate();
+    for (var i = 0; i < awal; i++) g.appendChild(document.createElement("span"));
+    for (var d = 1; d <= jml; d++) {
+      var t = new Date(view.getFullYear(), view.getMonth(), d), s = iso(t), b = document.createElement("button"), v = n(s);
+      b.type = "button"; b.textContent = d; b.dataset.tgl = s;
+      if (v >= K) b.classList.add("penuh"); else if (v > 0) b.classList.add("sebagian");
+      b.disabled = t < today;
+      b.setAttribute("aria-pressed", K === 1 ? String(v > 0) : String(s === terpilih));
+      b.setAttribute("aria-label", s + (v >= K ? ", penuh" : v > 0 ? ", terisi " + v + " dari " + K : ", kosong"));
+      b.addEventListener("click", function () { pilihTanggal(this.dataset.tgl, this); });
+      g.appendChild(b);
+    }
+    var kp = $("#kuota"); kp.hidden = !(K > 1 && terpilih);
+    if (!kp.hidden) {
+      $("#kuota-tgl").textContent = terpilih; $("#k-nilai").textContent = n(terpilih) + " / " + K;
+      $("#k-kurang").disabled = n(terpilih) <= 0; $("#k-tambah").disabled = n(terpilih) >= K;
+    }
+    var ks = Array.from(isi.keys()).filter(function (s) { return s >= iso(today); }).sort();
+    var pen = ks.filter(function (s) { return n(s) >= K; }), seb = ks.filter(function (s) { return n(s) < K; });
+    $("#daftar").textContent = ks.length ? "Penuh (" + pen.length + "): " + (pen.join(", ") || "-") + (K > 1 ? ". Sebagian (" + seb.length + "): " + (seb.map(function (s) { return s + " (" + n(s) + "/" + K + ")"; }).join(", ") || "-") : "") : "Belum ada tanggal penuh.";
+  }
+  $("#atur-info").innerHTML = K > 1
+    ? "Kuota <strong>" + K + " booking per hari</strong>. Ketuk tanggal, lalu atur jumlah slot yang sudah terisi dengan tombol + dan −. Tanggal penuh kalau slotnya habis. Perubahan langsung tersimpan."
+    : "Ketuk tanggal untuk menandai <strong>penuh</strong>. Ketuk lagi untuk membukanya kembali. Perubahan langsung tersimpan.";
+  $("#prev").addEventListener("click", function () { view.setMonth(view.getMonth()-1); render(); });
+  $("#next").addEventListener("click", function () { view.setMonth(view.getMonth()+1); render(); });
+
+
+  /* ---------- penawaran pribadi ---------- */
+  (function () {
+    var T = S.penawaran || {}, xBox = $("#tw-x");
+    function rp(n) { return "Rp " + Math.round(Number(n) || 0).toLocaleString("id-ID"); }
+    function enc(o) { return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+    var selK = $("#tw-k"), selP = $("#tw-p");
+    selK.appendChild(new Option("Tanpa look", ""));
+    (S.looks || []).forEach(function (l) { selK.appendChild(new Option(l.nama, l.nama)); });
+    (S.paket || []).forEach(function (p, i) { selP.appendChild(new Option(p.nama, i)); });
+    selP.appendChild(new Option("Lainnya (tulis di tambahan)", ""));
+    $("#tw-dp").value = T.dpPersen != null ? T.dpPersen : 30; $("#tw-s").value = T.berlakuHari || 7;
+    function isiHarga() { var p = S.paket[selP.value]; $("#tw-h").value = p ? p.harga : 0; $("#tw-h").disabled = !p; }
+    selP.addEventListener("change", function () { isiHarga(); ringkas(); });
+    isiHarga();
+
+    function tambahBaris(nama, harga) {
+      var r = document.createElement("div"); r.className = "x-baris";
+      var n = document.createElement("input"), h = document.createElement("input"), del = document.createElement("button");
+      n.placeholder = "Mis. Rias 2 ibu"; n.maxLength = 80; n.setAttribute("aria-label", "Nama item tambahan"); n.value = nama || "";
+      h.type = "number"; h.inputMode = "numeric"; h.min = 0; h.step = 50000; h.placeholder = "Harga"; h.setAttribute("aria-label", "Harga item tambahan"); h.value = harga || "";
+      del.type = "button"; del.className = "x-hapus"; del.textContent = "✕"; del.setAttribute("aria-label", "Hapus item");
+      del.addEventListener("click", function () { r.remove(); ringkas(); });
+      r.append(n, h, del); xBox.appendChild(r); return n;
+    }
+    $("#tw-x-tambah").addEventListener("click", function () { tambahBaris().focus(); });
+
+    function data() {
+      var p = S.paket[selP.value], s = new Date(); s.setDate(s.getDate() + (Number($("#tw-s").value) || 7));
+      var x = Array.from(xBox.querySelectorAll(".x-baris")).map(function (r) { var i = r.querySelectorAll("input"); return [i[0].value.trim(), Number(i[1].value) || 0]; })
+        .filter(function (r) { return r[0]; });
+      var o = { v: 1, u: $("#tw-u").value.trim(), t: $("#tw-t").value, l: $("#tw-l").value.trim(), k: selK.value,
+        p: p ? p.nama : "", h: p ? Number($("#tw-h").value) || 0 : 0, x: x, d: Number($("#tw-d").value) || 0,
+        dp: Number($("#tw-dp").value) || 0, s: iso(s), c: $("#tw-c").value.trim() };
+      Object.keys(o).forEach(function (k) { if (o[k] === "" || (Array.isArray(o[k]) && !o[k].length)) delete o[k]; });
+      return o;
+    }
+    function hitung(o) {
+      var t = (o.h || 0) + (o.x || []).reduce(function (a, r) { return a + r[1]; }, 0) - (o.d || 0); t = Math.max(0, t);
+      return { total: t, dp: Math.round(t * (o.dp || 0) / 100 / 1000) * 1000 };
+    }
+    function ringkas() {
+      var o = data(), r = hitung(o), b = $("#tw-ringkas"); b.textContent = "";
+      [["Total", rp(r.total)], ["DP " + (o.dp || 0) + "%", rp(r.dp)], ["Berlaku sampai", o.s]].forEach(function (x) {
+        var d = document.createElement("div"), a = document.createElement("span"), v = document.createElement("strong"); a.textContent = x[0]; v.textContent = x[1]; d.append(a, v); b.appendChild(d);
+      });
+    }
+    $("#f-tawar").addEventListener("input", ringkas); ringkas();
+
+    var RK = "mua_riwayat_penawaran";
+    function riwayat() {
+      var l = []; try { l = JSON.parse(localStorage.getItem(RK) || "[]"); } catch (e) {}
+      var ul = $("#tw-riwayat"); ul.textContent = ""; $("#tw-riwayat-box").hidden = !l.length;
+      l.forEach(function (r) {
+        var li = document.createElement("li"), s = document.createElement("span"), a = document.createElement("a");
+        s.textContent = r.u + (r.t ? " · " + r.t : "") + " · dibuat " + r.dibuat; a.href = r.link; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Buka";
+        li.append(s, a); ul.appendChild(li);
+      });
+    }
+    riwayat();
+
+    function hp(n) { n = String(n || "").replace(/\D/g, ""); if (n.indexOf("0") === 0) n = "62" + n.slice(1); return n.length >= 9 ? n : ""; }
+    $("#f-tawar").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var o = data(), err = $("#tw-u-err"); err.textContent = ""; $("#tw-u").removeAttribute("aria-invalid");
+      if (!o.u) { err.textContent = "Tulis nama pasangan dulu."; $("#tw-u").setAttribute("aria-invalid", "true"); $("#tw-u").focus(); return; }
+      var link = new URL("penawaran.html", location.href).href.split("#")[0] + "#p=" + enc(o), r = hitung(o);
+      $("#tw-hasil").hidden = false; $("#tw-link").value = link; $("#tw-buka").href = link; $("#tw-status").textContent = "";
+      var pesan = "Halo " + o.u + ", ini penawaran dari " + S.brand.nama + " untuk hari H kalian" + (o.t ? " (" + o.t + ")" : "") + ". Total " + rp(r.total) + ", DP " + rp(r.dp) + ". Detail look dan rinciannya di sini:\n\n" + link;
+      var no = hp($("#tw-hp").value);
+      $("#tw-kirim").href = "https://wa.me/" + no + "?text=" + encodeURIComponent(pesan);
+      $("#tw-kirim").textContent = no ? "Kirim ke WA " + o.u : "Kirim via WA";
+      var l = []; try { l = JSON.parse(localStorage.getItem(RK) || "[]"); } catch (er) {}
+      l.unshift({ u: o.u, t: o.t || "", dibuat: iso(new Date()), link: link }); try { localStorage.setItem(RK, JSON.stringify(l.slice(0, 15))); } catch (er) {}
+      riwayat(); $("#tw-link").focus(); $("#tw-link").select();
+    });
+    $("#tw-salin").addEventListener("click", function () {
+      var v = $("#tw-link").value, ok = function () { $("#tw-status").textContent = "Link tersalin."; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(ok, function () { $("#tw-link").select(); $("#tw-status").textContent = "Tekan lama lalu salin."; });
+      else { $("#tw-link").select(); try { document.execCommand("copy"); ok(); } catch (er) {} }
+    });
+  })();
+
+  var BUTUH = { tgl: "kalender", stat: "statistik", tawar: "penawaran" };
+  function mulai() {
+    $("#login").hidden = true;
+    var boleh = Object.keys(TABS).filter(function (k) { $("#tab-" + k).hidden = !F[BUTUH[k]]; return F[BUTUH[k]]; });
+    if (!boleh.length) { $("#judul").textContent = "Admin"; $("#kosong").hidden = false; return; }
+    $("#tabs").hidden = boleh.length < 2; tab(boleh[0]);
+    if (F.kalender) muat().then(render);
+  }
+
+  /* ---------- tab ---------- */
+  var TABS = { tgl: "atur", stat: "statistik", tawar: "tawar" };
+  function tab(nama) {
+    Object.keys(TABS).forEach(function (k) {
+      $("#tab-" + k).setAttribute("aria-selected", String(k === nama)); $("#" + TABS[k]).hidden = k !== nama;
+    });
+    $("#judul").textContent = { tgl: "Tanggal penuh", stat: "Statistik", tawar: "Penawaran" }[nama];
+    if (nama === "stat") muatStat();
+  }
+  Object.keys(TABS).forEach(function (k) { $("#tab-" + k).addEventListener("click", function () { tab(k); }); });
+  $("#keluar2").addEventListener("click", function () { $("#keluar").click(); });
+  $("#rentang").addEventListener("change", muatStat);
+  var EV_KEY = "mua_demo_events";
+  try { $("#abaikan").checked = localStorage.getItem("mua_abaikan") === "1"; } catch (e) {}
+  $("#abaikan").addEventListener("change", function () { try { if (this.checked) localStorage.setItem("mua_abaikan", "1"); else localStorage.removeItem("mua_abaikan"); } catch (e) {} });
+
+  /* ---------- statistik ---------- */
+  function angka(n) { return Number(n || 0).toLocaleString("id-ID"); }
+  function tglPendek(s) { var d = new Date(s + "T00:00:00"); return d.getDate() + " " + BULAN[d.getMonth()].slice(0, 3); }
+  function muatStat() {
+    var hari = Number($("#rentang").value), st = $("#st-status"); st.textContent = "Memuat…";
+    $("#st-demo").hidden = !DEMO;
+    var p = DEMO ? Promise.resolve(hitungDemo(hari)) : sb.rpc("statistik", { p_hari: hari }).then(function (r) {
+      if (r.error) throw new Error(r.error.message); return r.data;
+    });
+    p.then(function (d) { st.textContent = ""; gambarStat(d, hari); }).catch(function (e) {
+      st.textContent = "Gagal memuat statistik: " + e.message + ". Pastikan bagian STATISTIK di supabase.sql sudah dijalankan.";
+    });
+  }
+  function gambarStat(d, hari) {
+    /* isi hari kosong dengan 0 supaya grafik tidak bolong */
+    var peta = {}; (d.harian || []).forEach(function (r) { peta[r.hari] = r; });
+    var deret = [], t = new Date(today); t.setDate(t.getDate() - (hari - 1));
+    for (var i = 0; i < hari; i++) { var s = iso(t); deret.push(peta[s] || { hari: s, kunjungan: 0, pengunjung: 0, klik_wa: 0, booking: 0 }); t.setDate(t.getDate() + 1); }
+    var sum = function (k) { return deret.reduce(function (a, r) { return a + Number(r[k] || 0); }, 0); };
+    var kunj = sum("kunjungan"), kl = sum("klik_wa"), bk = sum("booking"), hariIni = deret[deret.length - 1];
+    var konv = kunj ? Math.round((kl + bk) / kunj * 100) : 0;
+    var kartu = [[angka(hariIni.kunjungan), "Kunjungan hari ini"], [angka(kunj), "Kunjungan " + hari + " hari"], [angka(d.unik), "Orang berbeda"],
+                 [angka(kl), "Klik tombol WhatsApp"], [angka(bk), "Kirim form booking"], [konv + "", "Klik WA + form per 100 kunjungan"]];
+    var k = $("#kartu"); k.textContent = "";
+    kartu.forEach(function (c) { var dv = document.createElement("div"), a = document.createElement("strong"), b = document.createElement("span"); a.textContent = c[0]; b.textContent = c[1]; dv.append(a, b); k.appendChild(dv); });
+    var maks = Math.max.apply(null, deret.map(function (r) { return Number(r.kunjungan); }).concat([1]));
+    var g = $("#grafik"); g.textContent = "";
+    g.setAttribute("aria-label", "Grafik kunjungan per hari, " + hari + " hari terakhir. Total " + kunj + " kunjungan. Angka per hari ada di tabel di bawah.");
+    deret.forEach(function (r) {
+      var b = document.createElement("i"); b.style.height = Math.max(2, Math.round(Number(r.kunjungan) / maks * 100)) + "%";
+      b.title = tglPendek(r.hari) + ": " + r.kunjungan + " kunjungan, " + r.klik_wa + " klik WA"; g.appendChild(b);
+    });
+    $("#g-awal").textContent = tglPendek(deret[0].hari); $("#g-akhir").textContent = "Hari ini";
+    var tb = $("#tbl-label tbody"); tb.textContent = "";
+    if (!(d.label || []).length) { var tr0 = tb.insertRow(), c0 = tr0.insertCell(); c0.colSpan = 2; c0.textContent = "Belum ada klik di periode ini."; }
+    (d.label || []).forEach(function (r) { var tr = tb.insertRow(); tr.insertCell().textContent = r.label || "(tanpa label)"; tr.insertCell().textContent = angka(r.jumlah); });
+    var th = $("#tbl-hari tbody"); th.textContent = "";
+    deret.slice().reverse().forEach(function (r) {
+      var tr = th.insertRow(); tr.insertCell().textContent = tglPendek(r.hari);
+      [r.kunjungan, r.pengunjung, r.klik_wa, r.booking].forEach(function (v) { tr.insertCell().textContent = angka(v); });
+    });
+  }
+  /* Mode demo: data contoh (acak tetap) + kejadian nyata di browser ini, bentuknya sama dengan hasil fungsi statistik() di Supabase */
+  function hitungDemo(hari) {
+    var peta = {}, lab = {}, unik = new Set(), contoh = (S.looks || []).map(function (l) { return "Look · " + l.nama; }).concat(["WA · header", "WA · bar bawah (HP)", "WA · footer", "Form booking"]);
+    function rnd(n) { var x = Math.sin(n * 9301 + 49297) * 233280; return x - Math.floor(x); }
+    function tambah(s, k, v) { var r = peta[s] || (peta[s] = { hari: s, kunjungan: 0, pengunjung: 0, klik_wa: 0, booking: 0 }); r[k] = (r[k] || 0) + v; }
+    var t = new Date(today); t.setDate(t.getDate() - (hari - 1));
+    for (var i = 0; i < hari; i++) {
+      var s = iso(t), akhir = t.getDay() === 0 || t.getDay() === 6, kj = Math.round(14 + rnd(i + 1) * 20 + (akhir ? 14 : 0) + i * 0.25);
+      tambah(s, "kunjungan", kj); tambah(s, "pengunjung", Math.round(kj * 0.86));
+      var kl = Math.round(kj * (0.15 + rnd(i + 50) * 0.12)), bk = Math.round(kj * 0.05 * rnd(i + 90) * 2);
+      tambah(s, "klik_wa", kl); tambah(s, "booking", bk);
+      for (var j = 0; j < kl + bk; j++) { var w = Math.floor(Math.pow(rnd(i * 31 + j + 7), 1.8) * contoh.length), nm = contoh[w]; lab[nm] = (lab[nm] || 0) + 1; }
+      t.setDate(t.getDate() + 1);
+    }
+    var tot = Object.keys(peta).reduce(function (a, k) { return a + peta[k].pengunjung; }, 0); var unikN = Math.round(tot * 0.55);
+    var ev = []; try { ev = JSON.parse(localStorage.getItem(EV_KEY) || "[]"); } catch (e) {}
+    var batas = iso(new Date(today.getTime() - (hari - 1) * 864e5)), vis = {};
+    ev.forEach(function (e) {
+      var s = iso(new Date(e.t)); if (s < batas) return;
+      if (e.jenis === "kunjungan") { tambah(s, "kunjungan", 1); if (!vis[s + e.visitor]) { vis[s + e.visitor] = 1; tambah(s, "pengunjung", 1); } unik.add(e.visitor); }
+      else { tambah(s, e.jenis, 1); var n = e.label || "(tanpa label)"; lab[n] = (lab[n] || 0) + 1; }
+    });
+    var harian = Object.keys(peta).sort().map(function (k) { return peta[k]; });
+    var label = Object.keys(lab).map(function (n) { return { label: n, jenis: "klik_wa", jumlah: lab[n] }; }).sort(function (a, b) { return b.jumlah - a.jumlah; }).slice(0, 15);
+    return { harian: harian, label: label, unik: unikN + unik.size };
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id" data-tema="ivory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Penawaran pribadi</title>
+<meta property="og:title" content="Penawaran pribadi untukmu">
+<meta property="og:description" content="Rincian look, paket, dan harga yang kami siapkan khusus untuk hari H kalian.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  .tawar { max-width: 680px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top, 0px)) var(--gutter-r) calc(120px + env(safe-area-inset-bottom, 0px)) var(--gutter); display: grid; gap: 28px; }
+  .tawar-brand { text-align: center; font: 400 28px var(--f-display); text-decoration: none; display: block; }
+  .tawar-brand small { display: block; font: 400 12px var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .tawar-kepala { text-align: center; display: grid; gap: 10px; justify-items: center; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  .tawar-kepala h1 { font-size: clamp(2.4rem, 9vw, 3.6rem); }
+  .tawar-meta { color: var(--muted); }
+  .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); }
+  .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .chip.ok { color: #2F6B3A; border-color: #BFD6C2; }
+  .chip.sedikit { color: var(--accent); border-color: var(--accent); }
+  .chip.no { color: #B23A3A; border-color: #E6C2C2; }
+  [data-tema="noir"] .chip.ok { color: #8FD19B; } [data-tema="noir"] .chip.no { color: #E58A80; }
+  .tawar-look { display: grid; gap: 20px; align-items: center; }
+  @media (min-width: 600px) { .tawar-look { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; } }
+  .tawar-foto { background: var(--surface); border-radius: 120px 120px 8px 8px; height: 340px; display: grid; place-items: end center; overflow: hidden; padding-top: 16px; }
+  .tawar-foto img { height: 100%; width: auto; object-fit: contain; }
+  @media (max-width: 599px) { .tawar-foto { width: 230px; justify-self: center; } }
+  .tawar-look h2 { font-size: 2.2rem; }
+  .tawar-isi { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 6px; font-size: 15px; }
+  #t-look-link { display: inline-flex; align-items: center; margin-top: 8px; }
+  .tawar-isi span { color: var(--muted); display: inline-block; min-width: 80px; }
+  .rincian { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .rincian td { padding: 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .rincian td:last-child { text-align: right; white-space: nowrap; padding-left: 16px; }
+  .rincian .min td:last-child { color: #2F6B3A; }
+  [data-tema="noir"] .rincian .min td:last-child { color: #8FD19B; }
+  .rincian .total td { border-bottom: 0; padding-top: 16px; font: 400 1.7rem var(--f-display); }
+  .dp { background: var(--surface); border-radius: 8px; padding: 18px 20px; display: grid; gap: 6px; font-variant-numeric: tabular-nums; }
+  .dp-baris { display: flex; justify-content: space-between; gap: 12px; }
+  .dp-baris strong { font-weight: 500; }
+  .berlaku { font-size: 14px; color: var(--muted); text-align: center; }
+  .berlaku.lewat { color: #B23A3A; }
+  .catatan-mua { border-left: 2px solid var(--accent); padding: 4px 0 4px 16px; font-style: italic; }
+  .catatan-mua small { display: block; font-style: normal; color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .catatan-bawah { font-size: 13px; color: var(--muted); }
+  .tawar-aksi { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; gap: 10px; justify-content: center;
+    padding: 12px var(--gutter-r) calc(12px + env(safe-area-inset-bottom, 0px)) var(--gutter); background: var(--bg); background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--line); }
+  .tawar-aksi .btn { flex: 1; max-width: 340px; }
+  .tawar-kaki { text-align: center; font-size: 13px; color: var(--muted); display: grid; gap: 4px; }
+  .tawar-kaki a { min-height: 44px; display: inline-flex; align-items: center; justify-self: center; }
+  #isi { display: grid; gap: 32px; }
+  .dp-baris span:last-child, .dp-baris strong:last-child { white-space: nowrap; }
+  .tawar-aksi .btn { flex-direction: column; gap: 2px; line-height: 1.2; padding-block: 8px; }
+  .tawar-aksi .btn small { font: 400 12px var(--f-body); opacity: .85; }
+  .tawar-salah { text-align: center; display: grid; gap: 16px; justify-items: center; padding-top: 40px; }
+</style>
+</head>
+<body>
+<main class="tawar" id="tawar">
+  <a class="tawar-brand" href="index.html"><span id="b-nama"></span><small id="b-sub"></small></a>
+  <div id="isi" hidden>
+    <div class="tawar-kepala">
+      <p class="kicker">Penawaran pribadi</p>
+      <h1 id="t-untuk"></h1>
+      <p class="tawar-meta" id="t-meta"></p>
+      <p class="chip" id="t-status" hidden></p>
+    </div>
+
+    <section class="tawar-look" id="t-look" hidden aria-label="Look pilihan">
+      <div class="tawar-foto"><img id="t-look-img" alt=""></div>
+      <div>
+        <p class="kicker">Look pilihan</p>
+        <h2 id="t-look-nama"></h2>
+        <p class="sub" id="t-look-ringkas"></p>
+        <ul class="tawar-isi" id="t-look-isi"></ul>
+        <a class="link-kecil" id="t-look-link" href="index.html">Lihat look ini di website</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-rincian">
+      <h2 id="h-rincian" class="kicker" style="font-family: var(--f-body);">Rincian</h2>
+      <table class="rincian"><tbody id="t-rincian"></tbody></table>
+    </section>
+
+    <div class="dp" id="t-dp"></div>
+    <p class="berlaku" id="t-berlaku"></p>
+    <p class="catatan-mua" id="t-catatan" hidden></p>
+    <p class="catatan-bawah" id="t-bawah"></p>
+    <div class="tawar-kaki"><span id="k-alamat"></span><a id="k-web" href="index.html">Lihat website kami</a></div>
+  </div>
+
+  <div class="tawar-salah" id="salah" hidden>
+    <h1>Link penawaran tidak terbaca</h1>
+    <p class="sub">Mungkin link-nya terpotong saat disalin. Hubungi kami, nanti kami kirim ulang.</p>
+    <a class="btn" id="salah-wa" href="#" target="_blank" rel="noopener">Hubungi via WhatsApp</a>
+  </div>
+</main>
+
+<div class="tawar-aksi" id="aksi" hidden>
+  <a class="btn btn-garis" id="a-tanya" href="#" target="_blank" rel="noopener">Tanya dulu</a>
+  <a class="btn" id="a-kunci" href="#" target="_blank" rel="noopener">Kunci tanggal</a>
+</div>
+
+<script src="data.js"></script>
+<script src="fitur.js"></script>
+<script>
+/* Halaman penawaran pribadi. Isi penawaran ada di link (#p=...), dibuat dari admin.html → tab Penawaran. */
+(function () {
+  "use strict";
+  var S = window.SITE, B = S.booking || {}, $ = function (s) { return document.querySelector(s); };
+  var el = function (t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  document.documentElement.setAttribute("data-tema", S.tema);
+  $("#b-nama").textContent = S.brand.nama; $("#b-sub").textContent = S.brand.sub + " · " + S.brand.kota;
+  var HARI = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"], BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  function panjang(s) { var d = new Date(s + "T00:00:00"); return HARI[d.getDay()] + ", " + d.getDate() + " " + BULAN[d.getMonth()] + " " + d.getFullYear(); }
+  function rp(n) { return "Rp " + Math.round(Number(n) || 0).toLocaleString("id-ID"); }
+  function wa(p) { return "https://wa.me/" + S.brand.whatsapp + "?text=" + encodeURIComponent(p); }
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+
+  /* statistik anonim, sama seperti app.js (jenis: penawaran / klik_wa / booking) */
+  var live = !!(B.supabaseUrl && B.supabaseAnonKey);
+  var vid = store("mua_vid"); if (!vid) { vid = Math.random().toString(36).slice(2, 12) + Date.now().toString(36); store("mua_vid", vid); }
+  function catat(jenis, label) {
+    if (S.statistik === false || (window.MUA_FITUR && !window.MUA_FITUR.baca(S).statistik) || navigator.webdriver || store("mua_abaikan") === "1") return;
+    label = String(label || "").slice(0, 80) || null;
+    if (live) {
+      try { fetch(B.supabaseUrl.replace(/\/$/, "") + "/rest/v1/events", { method: "POST", keepalive: true,
+        headers: { apikey: B.supabaseAnonKey, Authorization: "Bearer " + B.supabaseAnonKey, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ jenis: jenis, label: label, visitor: vid }) }).catch(function () {}); } catch (e) {}
+    } else {
+      var a = []; try { a = JSON.parse(store("mua_demo_events") || "[]"); } catch (e) {}
+      a.push({ t: Date.now(), jenis: jenis, label: label, visitor: vid }); store("mua_demo_events", JSON.stringify(a.slice(-2000)));
+    }
+  }
+
+  window.addEventListener("hashchange", function () { location.reload(); });
+  /* baca isi link */
+  function dec(t) { t = t.replace(/-/g, "+").replace(/_/g, "/"); while (t.length % 4) t += "="; return JSON.parse(decodeURIComponent(escape(atob(t)))); }
+  var raw = (location.hash.match(/[#&]p=([^&]+)/) || [])[1], P = null;
+  try { P = raw ? dec(raw) : null; } catch (e) { P = null; }
+  if (!P || !P.u) {
+    $("#salah").hidden = false; $("#salah-wa").href = wa("Halo " + S.brand.nama + ", link penawaran saya tidak bisa dibuka. Boleh dikirim ulang?");
+    return;
+  }
+  var str = function (v, n) { return String(v == null ? "" : v).slice(0, n || 120); };
+  var untuk = str(P.u, 60);
+  document.title = "Penawaran untuk " + untuk + " · " + S.brand.nama;
+  $("#isi").hidden = false; $("#aksi").hidden = false;
+  $("#t-untuk").textContent = "Untuk " + untuk;
+  var meta = [];
+  if (P.t) meta.push(panjang(str(P.t, 10)));
+  if (P.l) meta.push(str(P.l, 80));
+  $("#t-meta").textContent = meta.join(" · ") || "Tanggal acara belum ditentukan";
+
+  /* look */
+  var L = (S.looks || []).filter(function (l) { return l.nama === P.k; })[0];
+  if (L) {
+    $("#t-look").hidden = false; $("#t-look-img").src = L.foto; $("#t-look-img").alt = L.nama;
+    $("#t-look-nama").textContent = L.nama; $("#t-look-ringkas").textContent = L.ringkas || "";
+    $("#t-look-link").href = "index.html#look-" + String(L.nama).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    (L.isi || []).forEach(function (x) {
+      var li = el("li"); li.append(el("span", null, x.jenis), document.createTextNode(x.nama || x.busana || x.aksesori || "")); $("#t-look-isi").appendChild(li);
+    });
+  }
+
+  /* rincian harga */
+  var tb = $("#t-rincian"), total = 0;
+  function baris(nama, harga, cls) { var tr = tb.insertRow(); if (cls) tr.className = cls; tr.insertCell().textContent = nama; tr.insertCell().textContent = harga; }
+  if (P.p) { baris("Paket " + str(P.p, 60), rp(P.h)); total += Number(P.h) || 0; }
+  (Array.isArray(P.x) ? P.x.slice(0, 12) : []).forEach(function (r) { var h = Number(r[1]) || 0; baris(str(r[0], 80), rp(h)); total += h; });
+  if (Number(P.d) > 0) { baris("Potongan harga", "− " + rp(P.d), "min"); total -= Number(P.d); }
+  total = Math.max(0, total); baris("Total", rp(total), "total");
+  var pct = Math.min(100, Math.max(0, Number(P.dp) || 0)), dp = Math.round(total * pct / 100 / 1000) * 1000;
+  var dpBox = $("#t-dp");
+  [["DP " + pct + "% untuk mengunci tanggal", rp(dp)], ["Pelunasan", rp(total - dp)]].forEach(function (r, i) {
+    var d = el("div", "dp-baris"); d.append(el(i ? "span" : "strong", null, r[0]), el(i ? "span" : "strong", null, r[1])); dpBox.appendChild(d);
+  });
+
+  /* masa berlaku */
+  var hariIni = new Date(), lewat = false; hariIni.setHours(0, 0, 0, 0);
+  if (P.s) {
+    var sisa = Math.round((new Date(str(P.s, 10) + "T00:00:00") - hariIni) / 864e5);
+    lewat = sisa < 0;
+    $("#t-berlaku").textContent = lewat ? "Penawaran ini sudah lewat masa berlakunya (" + panjang(str(P.s, 10)) + "). Hubungi kami untuk harga terbaru."
+      : "Berlaku sampai " + panjang(str(P.s, 10)) + (sisa === 0 ? " (hari ini terakhir)" : " (" + sisa + " hari lagi)");
+    $("#t-berlaku").classList.toggle("lewat", lewat);
+  }
+  if (P.c) { var c = $("#t-catatan"); c.hidden = false; c.textContent = "“" + str(P.c, 400) + "”"; c.appendChild(el("small", null, "— " + S.brand.nama)); }
+  $("#t-bawah").textContent = (S.penawaran && S.penawaran.catatanBawah) || "";
+  $("#k-alamat").textContent = S.brand.alamat + " · @" + S.brand.instagram;
+
+  /* cek tanggal (kalau fitur cek tanggal aktif) */
+  var F = window.MUA_FITUR ? window.MUA_FITUR.baca(S) : { kuota: true, kalender: true, statistik: true };
+  var KUOTA = F.kuota ? Math.max(1, Number(B.kuotaPerHari) || 1) : 1;
+  function tampilStatus(n) {
+    var ch = $("#t-status"); ch.hidden = false;
+    if (n >= KUOTA) { ch.className = "chip no"; ch.textContent = "Tanggal ini sudah penuh per hari ini"; }
+    else if (n > 0) { ch.className = "chip sedikit"; ch.textContent = "Tanggal masih tersedia, tinggal " + (KUOTA - n) + " slot"; }
+    else { ch.className = "chip ok"; ch.textContent = "Tanggal masih tersedia per hari ini"; }
+  }
+  if (P.t && B.cekTanggal && F.kalender && str(P.t, 10) >= iso(hariIni)) {
+    var t = str(P.t, 10);
+    if (live) {
+      fetch(B.supabaseUrl.replace(/\/$/, "") + "/rest/v1/tanggal_penuh?select=tanggal,terisi&tanggal=eq." + t, { headers: { apikey: B.supabaseAnonKey, Authorization: "Bearer " + B.supabaseAnonKey } })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (rows) { tampilStatus(rows.length ? (rows[0].terisi || KUOTA) : 0); }).catch(function () {});
+    } else {
+      var src = null; try { src = JSON.parse(store("mua_demo_tanggal_penuh") || "null"); } catch (e) {}
+      src = src || B.tanggalPenuhDemo || [];
+      tampilStatus(Array.isArray(src) ? (src.indexOf(t) > -1 ? KUOTA : 0) : Number(src[t] || 0));
+    }
+  }
+
+  /* tombol */
+  var ringkas = "Penawaran untuk " + untuk + (P.t ? ", " + panjang(str(P.t, 10)) : "") + (P.p ? ", paket " + str(P.p, 60) : "") + (L ? ", look " + L.nama : "") + ", total " + rp(total) + ".";
+  var tanya = $("#a-tanya"), kunci = $("#a-kunci");
+  tanya.href = wa("Halo " + S.brand.nama + ", saya sudah lihat " + ringkas.charAt(0).toLowerCase() + ringkas.slice(1) + " Ada yang mau saya tanyakan dulu.");
+  tanya.dataset.track = "klik_wa|Penawaran · " + untuk;
+  if (lewat) {
+    kunci.textContent = "Minta harga terbaru";
+    kunci.href = wa("Halo " + S.brand.nama + ", " + ringkas.charAt(0).toLowerCase() + ringkas.slice(1) + " Penawarannya sudah lewat masa berlaku, boleh minta harga terbaru?");
+    kunci.dataset.track = "klik_wa|Penawaran · " + untuk;
+  } else {
+    kunci.textContent = "Kunci tanggal"; kunci.appendChild(el("small", null, "DP " + rp(dp)));
+    kunci.href = wa("Halo " + S.brand.nama + ", saya mau mengunci tanggal sesuai " + ringkas.charAt(0).toLowerCase() + ringkas.slice(1) + " Mohon info rekening untuk DP " + rp(dp) + ".");
+    kunci.dataset.track = "booking|DP penawaran · " + untuk;
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[data-track]"); if (!a) return;
+    var x = a.dataset.track.split("|"); catat(x[0], x[1]);
+  }, true);
+
+  /* catat "dibuka" sekali per sesi per link */
+  var kunciSesi = "mua_tawar_" + raw.slice(-24);
+  try { if (!sessionStorage.getItem(kunciSesi)) { sessionStorage.setItem(kunciSesi, "1"); catat("penawaran", "Penawaran dibuka · " + untuk); } } catch (e) { catat("penawaran", "Penawaran dibuka · " + untuk); }
+})();
+</script>
+</body>
+</html>
