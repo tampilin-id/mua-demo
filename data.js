@@ -25,7 +25,7 @@ window.SITE = {
     alamat: "Jl. Ijen No. 12, Klojen, Kota Malang",
     jamBuka: "Senin–Sabtu, 09.00–17.00 (konsultasi dengan janji)",
     peta: "",                            // opsional: tempel link Google Maps lokasi. Kosong = dicari otomatis dari alamat
-    url: ""                              // alamat situs setelah online, mis. "https://namaklien.github.io/" (untuk preview link)
+    url: "https://tampilin-id.github.io/mua-demo/"                              // alamat situs setelah online, mis. "https://namaklien.github.io/" (untuk preview link)
   },
 
   /* ---------- Hero: foto sebelum & sesudah dirias ---------- */
@@ -98,6 +98,7 @@ window.SITE = {
              { jenis: "Aksesori", aksesori: "Gelang kana" } ] },
     { nama: "Resepsi Lilac", kategori: "Resepsi", foto: "assets/look-gaun-corset-lilac.webp", harga: 8500000, tag: ["resepsi","modern","terang","glam"],
       ringkas: "Gaun off-shoulder lilac dengan korset berpayet. Soft glam dan sanggul rendah dengan jepit mutiara, untuk resepsi yang romantis.",
+      video: "assets/look-lilac-video.mp4", videoPoster: "assets/look-lilac-video-poster.jpg",
       isi: [ { jenis: "Riasan", nama: "Soft glam mauve + sanggul rendah" },
              { jenis: "Busana", busana: "Gaun Corset Lilac" } ] },
     { nama: "Akad Hijab", kategori: "Muslimah", foto: "assets/look-kebaya-muslimah-putih.webp", harga: 3500000, tag: ["hijab","akad","lamaran","terang","natural"],

@@ -225,12 +225,30 @@
         if (bus) row.appendChild(el("span", "look-item-panah", "›"));
         li.appendChild(row); ul.appendChild(li);
       });
+      var vb = $("#ls-video"); vb.hidden = !l.video;
+      vb.onclick = l.video ? function () { bukaVideo(l, vb); } : null;
       var h = $("#ls-harga"); h.textContent = "";
       if (l.harga) { h.append(el("small", null, "Paket mulai"), document.createTextNode(rupiah(l.harga))); }
       $("#ls-wa").href = waLink("Halo " + S.brand.nama + ", saya tertarik dengan look \"" + l.nama + "\" (Look " + pad(active + 1) + "). Boleh info paket dan ketersediaan tanggalnya?");
       $("#ls-wa").dataset.track = "klik_wa|Look · " + l.nama;
       $("#lf-nomor").textContent = "Look " + pad(active + 1);
       $("#lf-nama").textContent = l.nama;
+    }
+
+    /* video gerak look (opsional: look.video + look.videoPoster). Baru diunduh saat tombol diklik. */
+    function bukaVideo(l, pemicu) {
+      var o = el("div", "vid-modal"); o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); o.setAttribute("aria-label", "Video look " + l.nama);
+      var v = el("video"); v.src = l.video; if (l.videoPoster) v.poster = l.videoPoster;
+      v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.controls = true; v.setAttribute("playsinline", ""); v.setAttribute("aria-label", "Video " + l.nama);
+      var x = el("button", "vid-tutup", "×"); x.type = "button"; x.setAttribute("aria-label", "Tutup video");
+      var cap = el("p", "vid-cap", l.nama + " · model dibuat dengan AI");
+      function tutup() { document.removeEventListener("keydown", tombol); o.remove(); document.body.classList.remove("vid-buka"); try { pemicu.focus(); } catch (e) {} }
+      function tombol(e) { if (e.key === "Escape") tutup(); else if (e.key === "Tab") { e.preventDefault(); x.focus(); } }
+      x.addEventListener("click", tutup);
+      o.addEventListener("click", function (e) { if (e.target === o) tutup(); });
+      var kotak = el("div", "vid-kotak"); kotak.append(v, x, cap); o.appendChild(kotak);
+      document.body.appendChild(o); document.body.classList.add("vid-buka"); document.addEventListener("keydown", tombol); x.focus();
+      var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
     }
 
     function go(i) { active = ((i % n) + n) % n; position(); isiSamping(); }
