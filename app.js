@@ -375,6 +375,36 @@
   });
   if (!ada(S.galeri)) { $("#galeri").hidden = true; S.galeri = []; }
 
+  /* ---------- video peragaan (Pro ke atas): data.video = { judul, sub, item: [{ src, poster, judul, ket }] }. Diunduh baru saat terlihat. ---------- */
+  (function () {
+    var V = S.video, sec = $("#video");
+    if (!FITUR.video || !V || !ada(V.item)) return;
+    sec.hidden = false;
+    if (V.judul) $("#video-judul").textContent = V.judul;
+    $("#video-sub").textContent = V.sub || ""; $("#video-sub").hidden = !V.sub;
+    var list = $("#video-list"), vids = [];
+    list.className = "video-grid n" + Math.min(V.item.length, 3);
+    V.item.slice(0, 3).forEach(function (it) {
+      var f = el("figure", "video-kartu"), v = el("video");
+      v.preload = "none"; v.muted = true; v.loop = true; v.playsInline = true; v.controls = true; v.setAttribute("playsinline", "");
+      if (it.poster) v.poster = it.poster; v.dataset.src = it.src; v.setAttribute("aria-label", it.judul || "Video peragaan");
+      f.appendChild(v);
+      if (it.judul || it.ket) { var c = el("figcaption"); if (it.judul) c.appendChild(el("strong", null, it.judul)); if (it.ket) c.appendChild(el("span", null, it.ket)); f.appendChild(c); }
+      list.appendChild(f); vids.push(v);
+    });
+    function muat(v) { if (!v.src && v.dataset.src) { v.src = v.dataset.src; v.preload = "metadata"; } }
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { muat(v); if (!v.dataset.jeda) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
+          else v.pause();
+        });
+      }, { threshold: .5 });
+      vids.forEach(function (v) { io.observe(v); v.addEventListener("pause", function () { if (document.activeElement === v || v.seeking) v.dataset.jeda = "1"; }); v.addEventListener("play", function () { delete v.dataset.jeda; }); });
+    } else vids.forEach(function (v) { v.addEventListener("click", function () { muat(v); v.play(); }, { once: true }); });
+  })();
+
   /* ---------- lightbox foto: panah / swipe / Esc, fokus terkunci. Dipakai galeri dan testimoni ---------- */
   var lightbox = (function () {
     var box = el("div", "lb"), gbr = el("img", "lb-img"), cap = el("p", "lb-cap"), hit = el("p", "lb-hitung");

@@ -8,12 +8,12 @@
    ===================================================================== */
 (function () {
   var PAKET = {
-    basic:   { look: false, aksesori: false, kuis: false, persiapan: false, kalender: false, kuota: false, statistik: false, penawaran: false },
-    pro:     { look: true,  aksesori: true,  kuis: true,  persiapan: true,  kalender: true,  kuota: false, statistik: false, penawaran: false },
-    premium: { look: true,  aksesori: true,  kuis: true,  persiapan: true,  kalender: true,  kuota: true,  statistik: true,  penawaran: true }
+    basic:   { video: false, look: false, aksesori: false, kuis: false, persiapan: false, kalender: false, kuota: false, statistik: false, penawaran: false },
+    pro:     { video: true,  look: true,  aksesori: true,  kuis: true,  persiapan: true,  kalender: true,  kuota: false, statistik: false, penawaran: false },
+    premium: { video: true,  look: true,  aksesori: true,  kuis: true,  persiapan: true,  kalender: true,  kuota: true,  statistik: true,  penawaran: true }
   };
   var NAMA = {
-    look: "Carousel look + koleksi busana", aksesori: "Aksesori", kuis: "Kuis look", persiapan: "Jam rias + checklist",
+    video: "Video peragaan", look: "Carousel look + koleksi busana", aksesori: "Aksesori", kuis: "Kuis look", persiapan: "Jam rias + checklist",
     kalender: "Kalender tanggal kosong", kuota: "Kuota per tanggal", statistik: "Statistik kunjungan & klik WA", penawaran: "Link penawaran pribadi"
   };
 

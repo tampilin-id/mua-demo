@@ -98,7 +98,6 @@ window.SITE = {
              { jenis: "Aksesori", aksesori: "Gelang kana" } ] },
     { nama: "Resepsi Lilac", kategori: "Resepsi", foto: "assets/look-gaun-corset-lilac.webp", harga: 8500000, tag: ["resepsi","modern","terang","glam"],
       ringkas: "Gaun off-shoulder lilac dengan korset berpayet. Soft glam dan sanggul rendah dengan jepit mutiara, untuk resepsi yang romantis.",
-      video: "assets/look-lilac-video.mp4", videoPoster: "assets/look-lilac-video-poster.jpg",
       isi: [ { jenis: "Riasan", nama: "Soft glam mauve + sanggul rendah" },
              { jenis: "Busana", busana: "Gaun Corset Lilac" } ] },
     { nama: "Akad Hijab", kategori: "Muslimah", foto: "assets/look-kebaya-muslimah-putih.webp", harga: 3500000, tag: ["hijab","akad","lamaran","terang","natural"],
@@ -235,6 +234,15 @@ window.SITE = {
   ],
 
   /* ---------- Galeri portofolio ---------- */
+  // Video peragaan (Pro ke atas). Ganti dengan video klien sendiri. Vertikal 9:16, ≤ 3 video, tiap file sebaiknya di bawah 2 MB. Kosongkan item untuk menyembunyikan bagian ini.
+  video: {
+    judul: "Lihat langsung",
+    sub: "Detail riasan dan busana bergerak, supaya kamu bisa membayangkannya di hari-H.",
+    item: [
+      { src: "assets/look-lilac-video.mp4", poster: "assets/look-lilac-video-poster.jpg", judul: "Resepsi Lilac", ket: "Contoh peragaan. Model dibuat dengan AI." }
+    ]
+  },
+
   galeri: [
     { gambar: "assets/hero-sesudah.webp", kat: "Adat", ket: "Paes Solo Putri — Rina & Dimas, Batu" },
     { gambar: "assets/galeri-2.webp", kat: "Hijab", ket: "Hijab akad — Nisa & Fajar, Malang" },

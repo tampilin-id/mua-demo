@@ -556,3 +556,14 @@ body.lb-buka { overflow: hidden; }
 .vid-tutup { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
 .vid-cap { color: #fff; font-size: 13px; margin: 0; opacity: .85; }
 body.vid-buka { overflow: hidden; }
+
+/* bagian video peragaan */
+.video-grid { display: grid; gap: 16px; justify-content: center; margin-top: 20px; grid-template-columns: repeat(auto-fit, minmax(0, 320px)); }
+.video-grid.n1 { grid-template-columns: minmax(0, 340px); }
+.video-kartu { margin: 0; }
+.video-kartu video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 16px; background: #000; display: block; }
+.video-kartu figcaption { margin-top: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.video-kartu figcaption span { opacity: .7; font-size: 13px; }
+.video-blok .isi { text-align: center; }
+.video-blok .sub { margin-inline: auto; }
+.video-kartu figcaption { align-items: center; }
