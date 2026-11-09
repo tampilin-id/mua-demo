@@ -20,6 +20,7 @@
   function baca(S) {
     var pilih = S.fitur, demo = null;
     if (S.modeDemo) { try { demo = localStorage.getItem("mua_demo_paket"); } catch (e) {} }
+    if (S.modeDemo) { try { var mp = location.search.match(/[?&]paket=(basic|pro|premium)/); if (mp) { demo = mp[1]; localStorage.setItem("mua_demo_paket", demo); } } catch (e) {} }
     if (demo && PAKET[demo]) pilih = demo;
     var dasar = typeof pilih === "string" && PAKET[pilih] ? pilih : "premium", f = {}, k;
     for (k in PAKET[dasar]) f[k] = PAKET[dasar][k];
