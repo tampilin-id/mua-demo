@@ -25,7 +25,7 @@ window.SITE = {
     alamat: "Jl. Ijen No. 12, Klojen, Kota Malang",
     jamBuka: "Senin–Sabtu, 09.00–17.00 (konsultasi dengan janji)",
     peta: "",                            // opsional: tempel link Google Maps lokasi. Kosong = dicari otomatis dari alamat
-    url: "https://tampilin-id.github.io/mua-demo/"                              // alamat situs setelah online, mis. "https://namaklien.github.io/" (untuk preview link)
+    url: "https://mua.momentaku.com/"                              // alamat situs setelah online, mis. "https://namaklien.github.io/" (untuk preview link)
   },
 
   /* ---------- Hero: foto sebelum & sesudah dirias ---------- */
