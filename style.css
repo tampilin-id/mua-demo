@@ -567,3 +567,5 @@ body.vid-buka { overflow: hidden; }
 .video-blok .isi { text-align: center; }
 .video-blok .sub { margin-inline: auto; }
 .video-kartu figcaption { align-items: center; }
+
+.galeri-lebih { margin-top: 24px; text-align: center; }

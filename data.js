@@ -234,6 +234,17 @@ window.SITE = {
   ],
 
   /* ---------- Galeri portofolio ---------- */
+  // Katalog lengkap (Premium): halaman terpisah katalog.html. Foto dibuat otomatis dari folder katalog-asli lewat tools/buat_katalog.py.
+  //   indeks: true  = muncul di Google (membantu pencarian)   |  false = tertutup, hanya lewat link khusus
+  //   tautan: true  = ada tombol "Lihat katalog lengkap" di halaman utama   |  false = hanya link khusus
+  katalog: {
+    judul: "Katalog lengkap",
+    sub: "Semua hasil rias, look, busana, dan aksesori kami. Ketuk + untuk memilih, lalu kirim pilihanmu lewat WhatsApp.",
+    indeks: true,
+    tautan: true,
+    maksPilihan: 20
+  },
+
   // Video peragaan (Pro ke atas). Ganti dengan video klien sendiri. Vertikal 9:16, ≤ 3 video, tiap file sebaiknya di bawah 2 MB. Kosongkan item untuk menyembunyikan bagian ini.
   video: {
     judul: "Lihat langsung",

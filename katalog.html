@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="id" data-tema="ivory">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="index,follow">
+<title>Katalog lengkap</title>
+<meta name="description" content="Katalog lengkap hasil rias, look pengantin, busana, dan aksesori.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  .kat { max-width: 1100px; margin: 0 auto; padding: calc(24px + env(safe-area-inset-top, 0px)) var(--gutter-r) calc(120px + env(safe-area-inset-bottom, 0px)) var(--gutter); }
+  .kat-atas { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .kat-brand { font: 500 24px var(--f-display); text-decoration: none; color: inherit; }
+  .kat-kembali { font-size: 14px; color: var(--muted); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+  .kat-kepala { padding: 28px 0 8px; }
+  .kat-kepala h1 { font-size: clamp(2.4rem, 8vw, 3.6rem); }
+  .kat-hitung { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .kat-alat { display: grid; gap: 12px; margin: 18px 0 20px; position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 10px 0; }
+  .kat-cari { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: 999px; padding: 0 18px; background: var(--surface); color: var(--ink); font: 400 16px var(--f-body); }
+  .kat-chip-baris { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .kat-chip-baris::-webkit-scrollbar { display: none; }
+  .kat-chip { flex: none; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: 400 14px var(--f-body); cursor: pointer; }
+  .kat-chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .kat-grid { columns: 2; column-gap: 10px; }
+  @media (min-width: 640px) { .kat-grid { columns: 3; column-gap: 14px; } }
+  @media (min-width: 960px) { .kat-grid { columns: 4; } }
+  .kat-kartu { break-inside: avoid; margin: 0 0 10px; position: relative; border-radius: 10px; overflow: hidden; background: var(--surface); }
+  @media (min-width: 640px) { .kat-kartu { margin-bottom: 14px; } }
+  .kat-buka { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+  .kat-buka img { display: block; width: 100%; height: auto; }
+  .kat-nama { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 10px 8px; color: #fff; font-size: 12.5px; line-height: 1.3; background: linear-gradient(transparent, rgba(0,0,0,.62)); pointer-events: none; text-align: left; }
+  .kat-pilih { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
+  .kat-pilih span { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,.9); color: #2E2420; display: grid; place-items: center; font: 500 20px/1 var(--f-body); box-shadow: 0 1px 6px rgba(0,0,0,.25); }
+  .kat-pilih[aria-pressed="true"] span { background: var(--accent); color: var(--on-accent); }
+  .kat-kartu.terpilih { outline: 3px solid var(--accent); outline-offset: -3px; }
+  .kat-kosong { text-align: center; padding: 60px 0; color: var(--muted); display: grid; gap: 14px; justify-items: center; }
+  .kat-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--bg); border-top: 1px solid var(--line); padding: 10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gutter); display: none; }
+  .kat-bar.tampil { display: block; }
+  .kat-bar-isi { max-width: 1100px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
+  .kat-bar-teks { flex: 1; font-size: 14px; line-height: 1.3; }
+  .kat-bar-teks b { font-weight: 500; }
+  .kat-hapus { background: none; border: 0; color: var(--muted); font: 400 14px var(--f-body); min-height: 44px; padding: 0 8px; cursor: pointer; text-decoration: underline; }
+  .kat-lb { position: fixed; inset: 0; z-index: 80; background: rgba(20,14,10,.94); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 56px 12px 16px; }
+  .kat-lb.tampil { display: flex; }
+  body.kat-lb-buka { overflow: hidden; }
+  .kat-lb img { max-width: 100%; max-height: 72vh; max-height: 72svh; object-fit: contain; border-radius: 4px; user-select: none; -webkit-user-drag: none; }
+  .kat-lb-cap { color: #fff; text-align: center; margin: 12px 0; font-size: 15px; max-width: 520px; }
+  .kat-lb-cap small { display: block; opacity: .7; font-size: 13px; }
+  .kat-lb-aksi { display: flex; gap: 10px; }
+  .kat-lb-x, .kat-lb-p { position: absolute; border: 0; background: rgba(255,255,255,.14); color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 24px; cursor: pointer; display: grid; place-items: center; }
+  .kat-lb-x { top: 10px; right: 10px; } .kat-lb-p.k { left: 8px; top: 50%; } .kat-lb-p.n { right: 8px; top: 50%; }
+  .kat-info { color: var(--muted); font-size: 13px; margin-top: 28px; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div class="kat">
+  <div class="kat-atas">
+    <a class="kat-brand" id="k-brand" href="index.html">Nama usaha</a>
+    <a class="kat-kembali" href="index.html">← Halaman utama</a>
+  </div>
+  <header class="kat-kepala">
+    <h1 id="k-judul">Katalog lengkap</h1>
+    <p class="sub" id="k-sub"></p>
+    <p class="kat-hitung" id="k-hitung" aria-live="polite"></p>
+  </header>
+  <div class="kat-alat" id="k-alat" hidden>
+    <input class="kat-cari" id="k-cari" type="search" placeholder="Cari look, busana, aksesori…" aria-label="Cari di katalog" autocomplete="off">
+    <div class="kat-chip-baris" id="k-chip" role="group" aria-label="Kategori"></div>
+  </div>
+  <div class="kat-grid" id="k-grid"></div>
+  <div class="kat-kosong" id="k-kosong" hidden>
+    <p id="k-kosong-teks">Belum ada foto di katalog.</p>
+    <a class="btn btn-garis" href="index.html">Kembali ke halaman utama</a>
+  </div>
+  <p class="kat-info" id="k-info" hidden>Ketuk tanda + di foto untuk memilih, lalu kirim pilihanmu lewat WhatsApp.</p>
+</div>
+
+<div class="kat-bar" id="k-bar" role="region" aria-label="Pilihan kamu">
+  <div class="kat-bar-isi">
+    <div class="kat-bar-teks" id="k-bar-teks"></div>
+    <button class="kat-hapus" id="k-hapus" type="button">Hapus</button>
+    <a class="btn btn-kecil" id="k-kirim" href="#" target="_blank" rel="noopener">Kirim ke WhatsApp</a>
+  </div>
+</div>
+
+<div class="kat-lb" id="k-lb" role="dialog" aria-modal="true" aria-label="Foto katalog">
+  <button class="kat-lb-x" id="k-lb-x" type="button" aria-label="Tutup">×</button>
+  <button class="kat-lb-p k" id="k-lb-k" type="button" aria-label="Foto sebelumnya">‹</button>
+  <button class="kat-lb-p n" id="k-lb-n" type="button" aria-label="Foto berikutnya">›</button>
+  <img id="k-lb-img" alt="">
+  <p class="kat-lb-cap" id="k-lb-cap"></p>
+  <div class="kat-lb-aksi"><button class="btn btn-kecil" id="k-lb-pilih" type="button">Pilih foto ini</button></div>
+</div>
+
+<script src="data.js"></script>
+<script src="fitur.js"></script>
+<script src="katalog-data.js"></script>
+<script>
+/* Halaman katalog lengkap (paket Premium). Foto dibuat dari folder katalog-asli lewat tools/buat_katalog.py → katalog-data.js.
+   Pengaturan di data.js:  katalog: { judul, sub, indeks: true|false, tautan: true|false, maksPilihan: 20 } */
+(function () {
+  "use strict";
+  var S = window.SITE, B = S.booking || {}, K = S.katalog || {}, DATA = window.MUA_KATALOG || { items: [], kategori: [] };
+  var FITUR = window.MUA_FITUR ? window.MUA_FITUR.baca(S) : { katalog: true, statistik: true };
+  var $ = function (s) { return document.querySelector(s); };
+  var el = function (t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  document.documentElement.setAttribute("data-tema", S.tema || "ivory");
+  document.title = (K.judul || "Katalog lengkap") + " — " + S.brand.nama;
+  $("#k-brand").textContent = S.brand.nama;
+  $("#k-judul").textContent = K.judul || "Katalog lengkap";
+  $("#k-sub").textContent = K.sub || ""; $("#k-sub").hidden = !K.sub;
+  if (K.indeks === false) $('meta[name="robots"]').setAttribute("content", "noindex,nofollow");   // katalog tertutup: tidak muncul di Google
+  var meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute("content", "Katalog lengkap " + S.brand.nama + ": hasil rias, look pengantin, busana, dan aksesori di " + S.brand.kota + ".");
+  var base = (S.brand.url || "").replace(/\/?$/, "/");
+  if (base !== "/" && K.indeks !== false) { var cn = document.createElement("link"); cn.rel = "canonical"; cn.href = base + "katalog.html"; document.head.appendChild(cn); }
+
+  /* statistik anonim (jenis 'katalog' dan 'klik_wa'; sama seperti halaman lain) */
+  var live = !!(B.supabaseUrl && B.supabaseAnonKey), vid = store("mua_vid");
+  if (!vid) { vid = Math.random().toString(36).slice(2, 12) + Date.now().toString(36); store("mua_vid", vid); }
+  function catat(jenis, label) {
+    if (!FITUR.statistik || S.statistik === false || navigator.webdriver || store("mua_abaikan") === "1") return;
+    label = label ? String(label).slice(0, 80) : null;
+    if (live) {
+      var k = B.supabaseAnonKey, h = { apikey: k, "Content-Type": "application/json", Prefer: "return=minimal" };
+      if (/^eyJ/.test(k)) h.Authorization = "Bearer " + k;
+      try { fetch(B.supabaseUrl.replace(/\/$/, "") + "/rest/v1/events", { method: "POST", keepalive: true, headers: h, body: JSON.stringify({ jenis: jenis, label: label, visitor: vid }) }).catch(function () {}); } catch (e) {}
+    } else {
+      var arr = []; try { arr = JSON.parse(store("mua_demo_events") || "[]"); } catch (e) {}
+      arr.push({ t: Date.now(), jenis: jenis, label: label, visitor: vid }); store("mua_demo_events", JSON.stringify(arr.slice(-2000)));
+    }
+  }
+
+  var items = DATA.items || [];
+  if (!FITUR.katalog || !items.length) {
+    var kosong = $("#k-kosong"); kosong.hidden = false;
+    $("#k-kosong-teks").textContent = !FITUR.katalog ? "Katalog lengkap tersedia di paket Premium." : "Belum ada foto di katalog.";
+    return;
+  }
+  var baru = true; try { baru = !sessionStorage.getItem("mua_kat_sesi"); sessionStorage.setItem("mua_kat_sesi", "1"); } catch (e) {}
+  if (baru) catat("katalog", "dibuka");
+
+  var MAKS = K.maksPilihan || 20, aktifKat = "", kata = "", tampil = [], idx = -1;
+  var PILIH_KEY = "mua_katalog_pilih", pilih = [];
+  try { pilih = JSON.parse(store(PILIH_KEY) || "[]").filter(function (id) { return items.some(function (i) { return i.id === id; }); }); } catch (e) {}
+  function simpanPilih() { store(PILIH_KEY, JSON.stringify(pilih)); }
+  function byId(id) { return items.filter(function (i) { return i.id === id; })[0]; }
+  function terpilih(id) { return pilih.indexOf(id) >= 0; }
+
+  $("#k-alat").hidden = false; $("#k-info").hidden = false;
+  /* kategori */
+  var kats = DATA.kategori && DATA.kategori.length ? DATA.kategori : items.reduce(function (a, i) { if (a.indexOf(i.kat) < 0) a.push(i.kat); return a; }, []);
+  var chipBox = $("#k-chip");
+  function chip(label, val) {
+    var b = el("button", "kat-chip", label); b.type = "button"; b.setAttribute("aria-pressed", String(aktifKat === val)); b.dataset.val = val;
+    b.addEventListener("click", function () { aktifKat = val; chipBox.querySelectorAll(".kat-chip").forEach(function (x) { x.setAttribute("aria-pressed", String(x.dataset.val === aktifKat)); }); gambar(); });
+    chipBox.appendChild(b);
+  }
+  chip("Semua", ""); kats.forEach(function (k) { chip(k, k); });
+  var t = null; $("#k-cari").addEventListener("input", function (e) { clearTimeout(t); var v = e.target.value; t = setTimeout(function () { kata = v.trim().toLowerCase(); gambar(); }, 120); });
+
+  function gambar() {
+    tampil = items.filter(function (i) { return (!aktifKat || i.kat === aktifKat) && (!kata || (i.nama + " " + i.kat).toLowerCase().indexOf(kata) >= 0); });
+    var g = $("#k-grid"); g.textContent = "";
+    tampil.forEach(function (it, n) {
+      var f = el("figure", "kat-kartu" + (terpilih(it.id) ? " terpilih" : "")); f.dataset.id = it.id;
+      var bt = el("button", "kat-buka"); bt.type = "button"; bt.setAttribute("aria-label", "Perbesar: " + it.nama);
+      var im = el("img"); im.src = it.foto; im.alt = it.nama; im.loading = "lazy"; im.decoding = "async"; if (it.w && it.h) { im.width = it.w; im.height = it.h; }
+      bt.appendChild(im); bt.addEventListener("click", function () { bukaLb(n); });
+      var nm = el("figcaption", "kat-nama", it.nama);
+      var p = el("button", "kat-pilih"); p.type = "button"; p.setAttribute("aria-pressed", String(terpilih(it.id))); p.setAttribute("aria-label", "Pilih " + it.nama);
+      p.appendChild(el("span", null, terpilih(it.id) ? "✓" : "+"));
+      p.addEventListener("click", function () { alih(it.id); });
+      f.append(bt, nm, p); g.appendChild(f);
+    });
+    $("#k-hitung").textContent = tampil.length === items.length ? items.length + " foto" : tampil.length + " dari " + items.length + " foto";
+    $("#k-kosong").hidden = tampil.length > 0; if (!tampil.length) $("#k-kosong-teks").textContent = "Tidak ada foto yang cocok dengan pencarian.";
+    bar();
+  }
+  function alih(id) {
+    var i = pilih.indexOf(id);
+    if (i >= 0) pilih.splice(i, 1);
+    else { if (pilih.length >= MAKS) { alert("Maksimal " + MAKS + " foto per pesan. Kirim dulu, lalu pilih lagi untuk yang berikutnya."); return; } pilih.push(id); }
+    simpanPilih(); gambar(); lbUpdate();
+  }
+  function pesan() {
+    var baris = pilih.map(function (id, n) { var it = byId(id); return (n + 1) + ". " + it.nama + " (" + it.kat + ")"; });
+    return "Halo " + S.brand.nama + ", saya melihat katalog lengkap dan tertarik dengan:\n" + baris.join("\n") + "\n\nBisa tolong info ketersediaan tanggal dan paketnya? Terima kasih.";
+  }
+  function bar() {
+    var b = $("#k-bar"); b.classList.toggle("tampil", pilih.length > 0);
+    if (!pilih.length) return;
+    $("#k-bar-teks").innerHTML = "<b>" + pilih.length + " foto dipilih</b><br><span style=\"color:var(--muted)\">dari maksimal " + MAKS + "</span>";
+    $("#k-kirim").href = "https://wa.me/" + S.brand.whatsapp + "?text=" + encodeURIComponent(pesan());
+  }
+  $("#k-kirim").addEventListener("click", function () { catat("klik_wa", "Katalog: kirim " + pilih.length + " pilihan"); });
+  $("#k-hapus").addEventListener("click", function () { pilih = []; simpanPilih(); gambar(); lbUpdate(); });
+
+  /* lightbox */
+  var lb = $("#k-lb"), lastFocus = null;
+  function lbUpdate() {
+    if (idx < 0) return; var it = tampil[idx]; if (!it) return;
+    $("#k-lb-img").src = it.foto; $("#k-lb-img").alt = it.nama;
+    $("#k-lb-cap").innerHTML = ""; var c = $("#k-lb-cap"); c.appendChild(document.createTextNode(it.nama)); c.appendChild(el("small", null, it.kat + " · " + (idx + 1) + " / " + tampil.length));
+    $("#k-lb-pilih").textContent = terpilih(it.id) ? "✓ Terpilih (ketuk untuk batal)" : "Pilih foto ini";
+  }
+  function bukaLb(n) { lastFocus = document.activeElement; idx = n; lb.classList.add("tampil"); document.body.classList.add("kat-lb-buka"); lbUpdate(); $("#k-lb-x").focus(); }
+  function tutupLb() { lb.classList.remove("tampil"); document.body.classList.remove("kat-lb-buka"); idx = -1; try { lastFocus && lastFocus.focus(); } catch (e) {} }
+  function geser(d) { if (!tampil.length) return; idx = (idx + d + tampil.length) % tampil.length; lbUpdate(); }
+  $("#k-lb-x").addEventListener("click", tutupLb); $("#k-lb-k").addEventListener("click", function () { geser(-1); }); $("#k-lb-n").addEventListener("click", function () { geser(1); });
+  $("#k-lb-pilih").addEventListener("click", function () { if (tampil[idx]) alih(tampil[idx].id); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) tutupLb(); });
+  document.addEventListener("keydown", function (e) {
+    if (idx < 0) return;
+    if (e.key === "Escape") tutupLb(); else if (e.key === "ArrowLeft") geser(-1); else if (e.key === "ArrowRight") geser(1);
+    else if (e.key === "Tab") { var f = lb.querySelectorAll("button"), first = f[0], last = f[f.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } }
+  });
+  var sx = null; lb.addEventListener("touchstart", function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", function (e) { if (sx == null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) geser(dx < 0 ? 1 : -1); sx = null; });
+
+  gambar();
+})();
+</script>
+</body>
+</html>

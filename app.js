@@ -8,7 +8,7 @@
   var DEMO_KEY = "mua_demo_tanggal_penuh";
 
   /* ---------- fitur sesuai paket (fitur.js + `fitur` di data.js) ---------- */
-  var SEMUA = { look: true, aksesori: true, kuis: true, persiapan: true, kalender: true, kuota: true, statistik: true, penawaran: true, paket: "premium" };
+  var SEMUA = { katalog: true, video: true, look: true, aksesori: true, kuis: true, persiapan: true, kalender: true, kuota: true, statistik: true, penawaran: true, paket: "premium" };
   var FITUR = window.MUA_FITUR ? window.MUA_FITUR.baca(S) : SEMUA;
   var B0 = S.booking || (S.booking = {});
   if (!FITUR.kalender) B0.cekTanggal = false;
@@ -374,6 +374,14 @@
     f.append(box, c); $("#aks-list").appendChild(f);
   });
   if (!ada(S.galeri)) { $("#galeri").hidden = true; S.galeri = []; }
+
+  /* ---------- tautan ke katalog lengkap (Premium, halaman terpisah) ---------- */
+  (function () {
+    var K = S.katalog, D = window.MUA_KATALOG;
+    if (!FITUR.katalog || !K || K.tautan === false || !D || !ada(D.items)) return;
+    $("#katalog-tautan-a").textContent = "Lihat katalog lengkap (" + D.items.length + " foto)";
+    $("#katalog-tautan").hidden = false;
+  })();
 
   /* ---------- video peragaan (Pro ke atas): data.video = { judul, sub, item: [{ src, poster, judul, ket }] }. Diunduh baru saat terlihat. ---------- */
   (function () {
