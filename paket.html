@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pilihan Paket Website untuk Perias Pengantin — Tampilin</title>
+<meta name="description" content="Bandingkan paket Basic, Pro, dan Premium website untuk jasa rias pengantin, lengkap dengan contoh tampilan dan demo langsung.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pilihan Paket Website untuk Perias Pengantin — Tampilin">
+<meta property="og:description" content="Bandingkan paket Basic, Pro, dan Premium, lengkap dengan contoh tampilan dan demo langsung.">
+<meta property="og:image" content="https://mua.momentaku.com/assets/og.jpg?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<style>
+:root {
+  --bg:#F1EBE3; --surface:#E7DED3; --card:#F8F4EE; --ink:#2E2420; --muted:#6E5F55; --accent:#7D5C2C; --on-accent:#FBF7F1; --line:#D5C8B8;
+  --basic:#5B6B5A; --pro:#7D5C2C; --premium:#5A3A55;
+  --f-display:"Cormorant Garamond","Cormorant",Georgia,serif; --f-body:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
+}
+*,*::before,*::after { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.6; -webkit-text-size-adjust:100%; }
+img { max-width:100%; display:block; }
+a { color:inherit; }
+.wrap { max-width:1040px; margin:0 auto; padding:0 max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
+header.top { padding:36px 0 8px; text-align:center; }
+.kicker { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin:0 0 10px; }
+h1,h2,h3 { font-family:var(--f-display); font-weight:600; line-height:1.15; margin:0; }
+h1 { font-size:clamp(34px,8vw,56px); }
+h2 { font-size:clamp(28px,6vw,40px); }
+h3 { font-size:26px; }
+.lead { color:var(--muted); max-width:620px; margin:14px auto 0; font-size:17px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:0 22px; border-radius:999px; border:1px solid var(--accent); background:var(--accent); color:var(--on-accent); text-decoration:none; font:500 15px var(--f-body); cursor:pointer; }
+.btn.garis { background:transparent; color:var(--ink); border-color:var(--line); }
+.btn:focus-visible, .chip:focus-visible, a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+section { padding:44px 0; }
+section > .wrap > p.sub { color:var(--muted); max-width:620px; margin:10px 0 0; }
+.center { text-align:center; } .center p.sub { margin-inline:auto; }
+
+/* kartu paket */
+.paket { display:grid; gap:16px; margin-top:26px; }
+.kartu { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:22px 20px; display:flex; flex-direction:column; gap:12px; position:relative; }
+.kartu .lencana { position:absolute; top:-11px; right:18px; background:var(--premium); color:#fff; font-size:12px; letter-spacing:.06em; padding:3px 12px; border-radius:999px; }
+.kartu .nama { display:flex; align-items:baseline; gap:10px; }
+.kartu .titik { width:10px; height:10px; border-radius:50%; display:inline-block; }
+.kartu .tag { color:var(--muted); font-size:15px; margin:0; }
+.kartu .harga { font-family:var(--f-display); font-size:30px; font-weight:600; margin:2px 0; }
+.kartu .harga small { font:400 14px var(--f-body); color:var(--muted); }
+.kartu ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:15px; }
+.kartu li { padding-left:24px; position:relative; }
+.kartu li::before { content:"✓"; position:absolute; left:0; color:var(--accent); font-weight:500; }
+.kartu li.plus { font-weight:500; padding-top:4px; }
+.kartu li.plus::before { content:"+"; }
+.kartu .cocok { font-size:14px; color:var(--muted); border-top:1px dashed var(--line); padding-top:10px; margin:2px 0 0; }
+.kartu .aksi { margin-top:auto; display:flex; flex-direction:column; gap:8px; }
+.kartu.basic .titik { background:var(--basic); } .kartu.pro .titik { background:var(--pro); } .kartu.premium .titik { background:var(--premium); }
+.kartu.premium { border-color:var(--premium); }
+
+/* fitur satu per satu */
+.filter { display:flex; gap:8px; flex-wrap:wrap; margin:20px 0 4px; }
+.chip { min-height:40px; padding:0 16px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); font:400 14px var(--f-body); cursor:pointer; }
+.chip[aria-pressed="true"] { background:var(--ink); color:var(--bg); border-color:var(--ink); }
+.fitur { display:grid; gap:16px; margin-top:16px; grid-template-columns:1fr; }
+.f { background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; }
+.f .gbr { background:var(--surface); aspect-ratio:4/5; overflow:hidden; }
+.f .gbr img { width:100%; height:100%; object-fit:cover; object-position:top; }
+.f .gbr.lebar { aspect-ratio:16/9; }
+.f .isi { padding:16px 16px 18px; display:flex; flex-direction:column; gap:6px; }
+.f .isi h3 { font-size:22px; }
+.f .isi p { margin:0; font-size:14.5px; color:var(--muted); }
+.f .isi .bg { align-self:flex-start; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; padding:2px 10px; border-radius:999px; color:#fff; }
+.bg.basic { background:var(--basic); } .bg.pro { background:var(--pro); } .bg.premium { background:var(--premium); }
+.f.teks .isi { padding:22px 18px; }
+
+/* tabel */
+.tabel-bungkus { overflow-x:auto; margin-top:22px; border:1px solid var(--line); border-radius:16px; background:var(--card); }
+table { width:100%; border-collapse:collapse; font-size:14.5px; min-width:520px; }
+th,td { padding:12px 14px; text-align:left; border-bottom:1px solid var(--line); }
+th { font-weight:500; background:var(--surface); position:sticky; top:0; }
+td.c,th.c { text-align:center; width:84px; }
+tr:last-child td { border-bottom:0; }
+.ya { color:var(--accent); font-weight:500; } .tdk { color:var(--muted); opacity:.6; }
+
+.catatan { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px; padding:14px 16px; margin-top:20px; font-size:15px; }
+.langkah { counter-reset:l; list-style:none; margin:20px 0 0; padding:0; display:grid; gap:12px; }
+.langkah li { counter-increment:l; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px 14px 56px; position:relative; }
+.langkah li::before { content:counter(l); position:absolute; left:16px; top:12px; width:28px; height:28px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-size:14px; font-weight:500; }
+.cta { background:var(--ink); color:var(--bg); border-radius:24px; padding:34px 22px; text-align:center; }
+.cta h2 { color:var(--bg); } .cta p { color:#cdbfae; max-width:520px; margin:10px auto 18px; }
+.cta .btn { background:var(--bg); color:var(--ink); border-color:var(--bg); }
+footer { padding:28px 0 60px; text-align:center; color:var(--muted); font-size:13px; }
+
+@media (min-width:700px) {
+  .paket { grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; }
+  .fitur { grid-template-columns:repeat(2,1fr); }
+}
+@media (min-width:980px) { .fitur { grid-template-columns:repeat(3,1fr); } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <p class="kicker">Tampilin</p>
+  <h1>Pilihan paket website untuk perias pengantin</h1>
+  <p class="lead">Satu website yang rapi, ringan di HP, dan bisa menerima booking lewat WhatsApp. Pilih paket yang pas, lihat contoh tampilannya, dan coba demonya langsung.</p>
+  <p style="margin-top:20px"><a class="btn" href="#paket">Lihat paketnya</a></p>
+</div></header>
+
+<main>
+<section id="paket"><div class="wrap">
+  <h2>Tiga paket, satu pondasi yang sama</h2>
+  <p class="sub">Pro berisi semua isi Basic. Premium berisi semua isi Pro. Naik paket kapan saja tanpa membuat ulang website.</p>
+  <div class="paket" id="kartu"></div>
+  <p class="catatan"><strong>Catatan:</strong> semua gambar di halaman ini adalah tampilan demo (usaha contoh "Sekar Ayu Makeup &amp; Bridal"). Isinya nanti diganti dengan nama, foto, paket, dan harga Anda.</p>
+</div></section>
+
+<section id="fitur" style="background:rgba(0,0,0,.025)"><div class="wrap">
+  <h2>Lihat fiturnya satu per satu</h2>
+  <p class="sub">Ketuk filter untuk melihat apa saja yang ada di tiap paket.</p>
+  <div class="filter" id="filter" role="group" aria-label="Filter paket"></div>
+  <div class="fitur" id="fitur-list"></div>
+</div></section>
+
+<section id="banding"><div class="wrap">
+  <h2>Perbandingan lengkap</h2>
+  <div class="tabel-bungkus"><table id="tabel"></table></div>
+  <p class="catatan"><strong>Catatan jujur soal Google:</strong> website didaftarkan ke Google Search Console supaya Google tahu alamatnya dan mulai membacanya. Itu membantu website ditemukan, tetapi <strong>tidak menjamin peringkat</strong> atau halaman pertama. Untuk membantu tampil di pencarian lokal (misalnya "MUA Malang"), tersedia layanan <strong>SEO Lokal</strong> di Premium: profil Google Business, konsistensi nama dan alamat, kata kunci, panduan ulasan, dan laporan bulanan. Kami tidak menjanjikan posisi tertentu.</p>
+</div></section>
+
+<section id="alur"><div class="wrap">
+  <h2>Cara kerjanya</h2>
+  <ol class="langkah">
+    <li><strong>Kirim data Anda.</strong> Nama usaha, daftar paket dan harga, nomor WhatsApp, Instagram, alamat, dan foto hasil kerja terbaik. Untuk Pro dan Premium, tambahkan foto tiap look, daftar aksesori, video, atau foto dekor jika ada.</li>
+    <li><strong>Kami yang mengerjakan.</strong> Anda tidak perlu mengurus kode atau pengaturan teknis.</li>
+    <li><strong>Periksa dan koreksi.</strong> Kami kirim tautan untuk Anda periksa, dengan satu putaran revisi.</li>
+    <li><strong>Meluncur di alamat milik Anda.</strong> Domain tahun pertama dan pendaftaran Search Console sudah termasuk.</li>
+  </ol>
+</div></section>
+
+<section><div class="wrap"><div class="cta">
+  <h2>Siap punya website sendiri?</h2>
+  <p>Coba demo-nya langsung di HP Anda, lalu kabari paket yang paling cocok.</p>
+  <p style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:0">
+    <a class="btn" id="cta-demo" href="https://mua.momentaku.com/?paket=premium" target="_blank" rel="noopener">Buka demo</a>
+    <a class="btn" id="cta-wa" href="#" target="_blank" rel="noopener" hidden>Tanya lewat WhatsApp</a>
+  </p>
+</div></div></section>
+</main>
+
+<footer><div class="wrap">Tampilin · Website untuk perias pengantin</div></footer>
+
+<script>
+/* ====== ATUR DI SINI ======
+   WA_NOMOR : nomor WhatsApp Anda format internasional tanpa + (mis. "6282218080285"). Kosong = tombol WhatsApp disembunyikan.
+   DEMO     : alamat demo.
+   HARGA    : isi teks harga per paket (mis. "Rp 1,5 jt"). Kosong = tidak ditampilkan. */
+var WA_NOMOR = "";
+var DEMO = "https://mua.momentaku.com/";
+var HARGA = { basic: "", pro: "", premium: "" };
+
+var PAKET = [
+  { id: "basic", nama: "Basic", tag: "Etalase online yang rapi dengan tombol booking WhatsApp.",
+    cocok: "Cocok untuk perias yang ingin punya etalase online profesional dan mudah dibagikan.",
+    isi: ["Hero foto sebelum/sesudah", "Tentang, paket harga, galeri dengan filter", "Testimoni (teks dan tangkapan layar chat)", "Booking lewat WhatsApp dengan pesan terisi", "FAQ, kontak, dan Google Maps", "4 pilihan tema warna", "Tampil rapi saat link dibagikan, SEO dasar", "Domain tahun pertama dan Search Console"] },
+  { id: "pro", nama: "Pro", tag: "Lebih meyakinkan: calon pengantin bisa memilih look sendiri.",
+    cocok: "Cocok untuk perias yang punya banyak look dan ingin calon pengantin yakin sebelum menghubungi.",
+    isi: ["Video peragaan di halaman", "Koleksi \"Pilih look-nya\"", "Aksesori lengkap dengan keterangan", "Kuis \"Look mana yang cocok untukmu?\"", "Jam mulai rias dan checklist persiapan", "Kalender tanggal kosong dan penuh"], plus: "Semua isi Basic, ditambah:" },
+  { id: "premium", nama: "Premium", tag: "Untuk yang sudah ramai order dan ingin tahu hasilnya.", lencana: "Paling lengkap",
+    cocok: "Cocok untuk perias yang punya banyak karya dan ingin tahu dari mana calon pengantin datang.",
+    isi: ["Katalog lengkap di halaman terpisah dengan link khusus", "Slide contoh dekorasi di halaman utama", "Statistik kunjungan dan klik WhatsApp", "Kuota booking per hari", "Link penawaran pribadi untuk tiap calon pengantin", "Layanan SEO Lokal (Google Business Profile), dikerjakan terpisah"], plus: "Semua isi Pro, ditambah:" }
+];
+
+var FITUR = [
+  ["basic","hero","Foto sebelum / sesudah","Foto yang bisa digeser: kiri wajah polos, kanan setelah dirias. Calon pengantin langsung melihat bedanya."],
+  ["basic","tentang","Tentang Anda","Cerita singkat, pengalaman, dan gaya riasan yang dikuasai, supaya calon pengantin merasa mengenal Anda."],
+  ["basic","paket","Paket dan harga","Daftar paket beserta isi dan harga mulai dari. Pertanyaan \"berapa?\" sudah terjawab sebelum ditanya."],
+  ["basic","galeri","Galeri dengan filter","Hasil rias dikelompokkan per jenis (Adat, Hijab, Akad, Resepsi), bisa diperbesar dan digeser."],
+  ["basic","testimoni","Testimoni","Kutipan ulasan ditambah tangkapan layar chat WhatsApp atau Instagram klien (dengan izin)."],
+  ["basic","booking","Booking lewat WhatsApp","Formulir singkat yang mengirim pesan rapi dan lengkap ke WhatsApp Anda. Tidak perlu bertanya satu per satu."],
+  ["basic","faq","Pertanyaan yang sering ditanyakan","Jawaban untuk DP, luar kota, trial, dan kapan harus booking, jadi Anda tidak mengulang jawaban yang sama."],
+  ["basic","kontak","Kontak dan Google Maps","Alamat, jam kerja, WhatsApp, Instagram, dan tombol Google Maps di satu tempat."],
+  ["basic","tema","Empat pilihan tema","Ivory, Blush, Sogan, atau Noir: satu tampilan, empat suasana warna."],
+  ["basic","og","Rapi saat dibagikan","Saat link dikirim lewat WhatsApp atau Instagram, muncul kartu dengan foto dan nama usaha. Catatan: kartu ini kadang butuh beberapa hari muncul di domain yang baru.",true],
+  ["pro","video","Video peragaan","Video pendek riasan dan busana yang diputar otomatis dan bisa dibuka lebih besar. Untuk klien dipakai video milik sendiri."],
+  ["pro","koleksi","Pilih look-nya","Rangkaian look pengantin yang bisa digeser, lengkap dengan isi tiap look dan tombol tanya via WhatsApp."],
+  ["pro","aksesori","Aksesori","Mahkota, siger, ronce melati, dan lainnya dengan keterangan mana yang termasuk paket dan mana yang bisa disewa."],
+  ["pro","kuis","Kuis \"Look mana yang cocok untukmu?\"","Empat pertanyaan singkat, hasilnya rekomendasi look yang bisa langsung dikirim ke WhatsApp Anda.",true],
+  ["pro","persiapan","Jam rias dan checklist","Jadwal hari-H dihitung otomatis dari jam acara, plus checklist perawatan kulit sebelum hari-H."],
+  ["pro","kalender","Kalender tanggal kosong","Tanggal yang sudah penuh ditandai, jadi tidak ada lagi permintaan untuk tanggal yang tidak tersedia.",true],
+  ["premium","katalog","Katalog lengkap","Halaman terpisah berisi puluhan foto dengan pencarian dan filter. Calon pengantin memilih foto yang disuka lalu mengirimnya lewat WhatsApp. Punya link khusus."],
+  ["premium","dekor","Contoh dekorasi","Slide foto dekorasi pelaminan dan akad di halaman utama, otomatis dari folder dekorasi di katalog."],
+  ["premium","statistik","Statistik","Kunjungan harian, klik tombol WhatsApp, dan form booking terkirim, lengkap dengan grafik. Angka di gambar adalah data contoh."],
+  ["premium","penawaran","Link penawaran pribadi","Satu link khusus untuk satu calon pengantin berisi look, paket, harga, dan masa berlaku. Terlihat kapan link dibuka."],
+  ["premium","", "Kuota booking per hari","Satu tanggal bisa menerima lebih dari satu pengantin sesuai jumlah tim Anda. Tanggal baru ditandai penuh setelah kuotanya terisi."],
+  ["premium","", "SEO Lokal","Layanan tambahan: profil Google Business, konsistensi nama dan alamat, kata kunci, panduan ulasan, direktori lokal, dan laporan bulanan. Tanpa janji peringkat."]
+];
+
+var BANDING = [
+  ["Hero, tentang, paket, galeri, testimoni, FAQ, Maps", 1,1,1],
+  ["Booking WhatsApp, 4 tema, SEO dasar", 1,1,1],
+  ["Domain tahun pertama dan Search Console", 1,1,1],
+  ["Video peragaan", 0,1,1],
+  ["Koleksi look dan aksesori", 0,1,1],
+  ["Kuis look, jam rias, checklist", 0,1,1],
+  ["Kalender tanggal kosong/penuh", 0,1,1],
+  ["Katalog lengkap dengan link khusus", 0,0,1],
+  ["Slide contoh dekorasi", 0,0,1],
+  ["Statistik dan kuota per hari", 0,0,1],
+  ["Link penawaran pribadi", 0,0,1],
+  ["SEO Lokal (layanan terpisah)", 0,0,"Tersedia"]
+];
+
+function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+var NAMA = { basic: "Basic", pro: "Pro", premium: "Premium" };
+function wa(teks) { return "https://wa.me/" + WA_NOMOR + "?text=" + encodeURIComponent(teks); }
+
+/* kartu paket */
+var kartu = document.getElementById("kartu");
+PAKET.forEach(function (p) {
+  var k = el("article", "kartu " + p.id);
+  if (p.lencana) k.appendChild(el("span", "lencana", p.lencana));
+  var n = el("div", "nama"); n.append(el("span", "titik"), el("h3", null, p.nama)); k.appendChild(n);
+  k.appendChild(el("p", "tag", p.tag));
+  if (HARGA[p.id]) { var h = el("p", "harga", HARGA[p.id]); h.appendChild(el("small", null, " / paket")); k.appendChild(h); }
+  var u = el("ul");
+  if (p.plus) u.appendChild(el("li", "plus", p.plus));
+  p.isi.forEach(function (t) { u.appendChild(el("li", null, t)); });
+  k.appendChild(u); k.appendChild(el("p", "cocok", p.cocok));
+  var a = el("div", "aksi");
+  var d = el("a", "btn" + (p.id === "premium" ? "" : " garis"), "Lihat demo " + p.nama); d.href = DEMO + "?paket=" + p.id; d.target = "_blank"; d.rel = "noopener"; a.appendChild(d);
+  if (WA_NOMOR) { var w = el("a", "btn garis", "Tanya paket " + p.nama); w.href = wa("Halo, saya tertarik dengan paket " + p.nama + " website untuk jasa rias. Boleh tanya-tanya dulu?"); w.target = "_blank"; w.rel = "noopener"; a.appendChild(w); }
+  k.appendChild(a); kartu.appendChild(k);
+});
+
+/* fitur + filter */
+var filter = document.getElementById("filter"), list = document.getElementById("fitur-list"), aktif = "";
+function gambar() {
+  list.textContent = "";
+  FITUR.filter(function (f) { return !aktif || f[0] === aktif; }).forEach(function (f) {
+    var ada = !!f[1], c = el("article", "f" + (ada ? "" : " teks"));
+    if (ada) {
+      var g = el("div", "gbr" + (f[4] ? " lebar" : "")), im = el("img"); im.src = "assets/paket/" + f[1] + ".webp"; im.alt = "Contoh tampilan: " + f[2]; im.loading = "lazy"; im.decoding = "async"; g.appendChild(im); c.appendChild(g);
+    }
+    var i = el("div", "isi"); i.appendChild(el("span", "bg " + f[0], "Paket " + NAMA[f[0]])); i.appendChild(el("h3", null, f[2])); i.appendChild(el("p", null, f[3])); c.appendChild(i);
+    list.appendChild(c);
+  });
+}
+[["", "Semua"], ["basic", "Basic"], ["pro", "Pro"], ["premium", "Premium"]].forEach(function (x) {
+  var b = el("button", "chip", x[1]); b.type = "button"; b.setAttribute("aria-pressed", String(x[0] === aktif));
+  b.addEventListener("click", function () { aktif = x[0]; Array.prototype.forEach.call(filter.children, function (y, j) { y.setAttribute("aria-pressed", String(["", "basic", "pro", "premium"][j] === aktif)); }); gambar(); });
+  filter.appendChild(b);
+});
+gambar();
+
+/* tabel */
+var tb = document.getElementById("tabel"), th = el("thead"), tr = el("tr");
+["Fitur", "Basic", "Pro", "Premium"].forEach(function (t, i) { var c = el("th", i ? "c" : "", t); c.scope = "col"; tr.appendChild(c); });
+th.appendChild(tr); tb.appendChild(th);
+var body = el("tbody");
+BANDING.forEach(function (r) {
+  var t = el("tr"); t.appendChild(el("td", null, r[0]));
+  for (var i = 1; i <= 3; i++) { var v = r[i], c = el("td", "c " + (v ? "ya" : "tdk"), v === 1 ? "✓" : v ? v : "–"); c.setAttribute("aria-label", v ? "ada" : "tidak ada"); t.appendChild(c); }
+  body.appendChild(t);
+});
+tb.appendChild(body);
+
+/* CTA */
+document.getElementById("cta-demo").href = DEMO + "?paket=premium";
+if (WA_NOMOR) { var cw = document.getElementById("cta-wa"); cw.href = wa("Halo, saya sudah lihat pilihan paket website untuk jasa rias. Boleh tanya-tanya dulu?"); cw.hidden = false; }
+</script>
+</body>
+</html>
