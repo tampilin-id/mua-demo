@@ -239,10 +239,18 @@ window.SITE = {
   //   tautan: true  = ada tombol "Lihat katalog lengkap" di halaman utama   |  false = hanya link khusus
   katalog: {
     judul: "Katalog lengkap",
-    sub: "Semua hasil rias, look, busana, dan aksesori kami. Ketuk + untuk memilih, lalu kirim pilihanmu lewat WhatsApp.",
+    sub: "Semua hasil rias, look, busana, aksesori, dan dekorasi kami. Ketuk + untuk memilih, lalu kirim pilihanmu lewat WhatsApp.",
     indeks: true,
     tautan: true,
     maksPilihan: 20
+  },
+
+  // Slide dekorasi di halaman utama (Premium). Foto diambil otomatis dari kategori "Dekorasi" di katalog (folder "5 Dekorasi"). tampil:false untuk menyembunyikan.
+  dekor: {
+    judul: "Dekorasi",
+    sub: "Contoh dekorasi pelaminan dan akad dari mitra kami. Geser untuk melihat lainnya.",
+    kategori: "Dekorasi",
+    maks: 8
   },
 
   // Video peragaan (Pro ke atas). Ganti dengan video klien sendiri. Vertikal 9:16, ≤ 3 video, tiap file sebaiknya di bawah 2 MB. Kosongkan item untuk menyembunyikan bagian ini.
@@ -250,7 +258,7 @@ window.SITE = {
     judul: "Lihat langsung",
     sub: "Detail riasan dan busana bergerak, supaya kamu bisa membayangkannya di hari-H.",
     item: [
-      { src: "assets/look-lilac-video.mp4", poster: "assets/look-lilac-video-poster.jpg", judul: "Resepsi Lilac", ket: "Contoh peragaan. Model dibuat dengan AI." }
+      { src: "assets/look-lilac-video.mp4", poster: "assets/look-lilac-video-poster.jpg", judul: "Resepsi Lilac", ket: "Contoh peragaan." }
     ]
   },
 

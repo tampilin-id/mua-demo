@@ -161,6 +161,7 @@
     chipBox.appendChild(b);
   }
   chip("Semua", ""); kats.forEach(function (k) { chip(k, k); });
+  try { var qk = (location.search.match(/[?&]kat=([^&]+)/) || [])[1]; qk = qk ? decodeURIComponent(qk) : ""; if (qk && kats.indexOf(qk) >= 0) { aktifKat = qk; chipBox.querySelectorAll(".kat-chip").forEach(function (x) { x.setAttribute("aria-pressed", String(x.dataset.val === aktifKat)); }); } } catch (e) {}
   var t = null; $("#k-cari").addEventListener("input", function (e) { clearTimeout(t); var v = e.target.value; t = setTimeout(function () { kata = v.trim().toLowerCase(); gambar(); }, 120); });
 
   function gambar() {

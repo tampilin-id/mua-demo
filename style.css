@@ -569,3 +569,20 @@ body.vid-buka { overflow: hidden; }
 .video-kartu figcaption { align-items: center; }
 
 .galeri-lebih { margin-top: 24px; text-align: center; }
+
+/* slide dekorasi (Premium) */
+.dekor-blok .isi { text-align: center; }
+.dekor-blok .sub { margin-inline: auto; }
+.dekor { margin-top: 20px; }
+.dekor-track { display: flex; align-items: flex-start; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; border-radius: 16px; }
+.dekor-track::-webkit-scrollbar { display: none; }
+.dekor-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.dekor-slide { margin: 0; flex: 0 0 min(100%, 760px); scroll-snap-align: center; text-align: left; }
+.dekor-slide img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; display: block; background: var(--surface); }
+.dekor-slide figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.dekor-nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+.dekor-dots { display: flex; gap: 7px; }
+.dekor-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); display: block; transition: background .2s, transform .2s; }
+.dekor-dots i.on { background: var(--accent); transform: scale(1.25); }
+@media (min-width: 760px) { .dekor-track { justify-content: flex-start; } .dekor-slide { flex-basis: 640px; } }
+@media (prefers-reduced-motion: reduce) { .dekor-track { scroll-behavior: auto; } }

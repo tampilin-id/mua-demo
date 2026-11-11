@@ -1,11 +1,12 @@
 /* Dibuat otomatis oleh tools/buat_katalog.py — jangan diedit tangan. */
 window.MUA_KATALOG = {
- "total": 46,
+ "total": 51,
  "kategori": [
   "Hasil rias",
   "Look pengantin",
   "Busana",
-  "Aksesori"
+  "Aksesori",
+  "Dekorasi"
  ],
  "items": [
   {
@@ -375,6 +376,46 @@ window.MUA_KATALOG = {
    "foto": "assets/katalog/046-gelang-kana.webp",
    "w": 900,
    "h": 600
+  },
+  {
+   "id": "047-pelaminan-modern-lilac",
+   "kat": "Dekorasi",
+   "nama": "Pelaminan modern lilac",
+   "foto": "assets/katalog/047-pelaminan-modern-lilac.webp",
+   "w": 1200,
+   "h": 675
+  },
+  {
+   "id": "048-pelaminan-adat-jawa-gebyok",
+   "kat": "Dekorasi",
+   "nama": "Pelaminan adat Jawa gebyok",
+   "foto": "assets/katalog/048-pelaminan-adat-jawa-gebyok.webp",
+   "w": 1200,
+   "h": 675
+  },
+  {
+   "id": "049-pelaminan-sunda-bambu-dan-melati",
+   "kat": "Dekorasi",
+   "nama": "Pelaminan Sunda bambu dan melati",
+   "foto": "assets/katalog/049-pelaminan-sunda-bambu-dan-melati.webp",
+   "w": 1200,
+   "h": 675
+  },
+  {
+   "id": "050-akad-outdoor-pampas",
+   "kat": "Dekorasi",
+   "nama": "Akad outdoor pampas",
+   "foto": "assets/katalog/050-akad-outdoor-pampas.webp",
+   "w": 1200,
+   "h": 676
+  },
+  {
+   "id": "051-detail-meja-pengantin",
+   "kat": "Dekorasi",
+   "nama": "Detail meja pengantin",
+   "foto": "assets/katalog/051-detail-meja-pengantin.webp",
+   "w": 1200,
+   "h": 800
   }
  ]
 };

@@ -241,7 +241,7 @@
       var v = el("video"); v.src = l.video; if (l.videoPoster) v.poster = l.videoPoster;
       v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.controls = true; v.setAttribute("playsinline", ""); v.setAttribute("aria-label", "Video " + l.nama);
       var x = el("button", "vid-tutup", "×"); x.type = "button"; x.setAttribute("aria-label", "Tutup video");
-      var cap = el("p", "vid-cap", l.nama + " · model dibuat dengan AI");
+      var cap = el("p", "vid-cap", l.nama + " · contoh peragaan");
       function tutup() { document.removeEventListener("keydown", tombol); o.remove(); document.body.classList.remove("vid-buka"); try { pemicu.focus(); } catch (e) {} }
       function tombol(e) { if (e.key === "Escape") tutup(); else if (e.key === "Tab") { e.preventDefault(); x.focus(); } }
       x.addEventListener("click", tutup);
@@ -381,6 +381,43 @@
     if (!FITUR.katalog || !K || K.tautan === false || !D || !ada(D.items)) return;
     $("#katalog-tautan-a").textContent = "Lihat katalog lengkap (" + D.items.length + " foto)";
     $("#katalog-tautan").hidden = false;
+  })();
+
+  /* ---------- slide dekorasi (Premium): memakai foto kategori "Dekorasi" dari katalog-data.js; data.dekor = { judul, sub, kategori, maks } ---------- */
+  (function () {
+    var Dk = S.dekor || {}, D = window.MUA_KATALOG, sec = $("#dekor");
+    if (!sec || !FITUR.dekor || Dk.tampil === false || !D || !ada(D.items)) return;
+    var kat = Dk.kategori || "Dekorasi", maks = Dk.maks || 8;
+    var foto = D.items.filter(function (i) { return i.kat === kat; }).slice(0, maks);
+    if (!foto.length) return;
+    sec.hidden = false;
+    if (Dk.judul) $("#dekor-judul").textContent = Dk.judul;
+    $("#dekor-sub").textContent = Dk.sub || ""; $("#dekor-sub").hidden = !Dk.sub;
+    var track = $("#dekor-track"), dots = $("#dekor-dots"), n = foto.length;
+    foto.forEach(function (f, i) {
+      var fig = el("figure", "dekor-slide"); fig.setAttribute("role", "group"); fig.setAttribute("aria-label", (i + 1) + " dari " + n);
+      var im = el("img"); im.src = f.foto; im.alt = f.nama; im.loading = i === 0 ? "eager" : "lazy"; im.decoding = "async"; im.draggable = false;
+      if (f.w && f.h) { im.width = f.w; im.height = f.h; }
+      fig.append(im, el("figcaption", null, f.nama)); track.appendChild(fig);
+      dots.appendChild(el("i"));
+    });
+    var langkah = function () { var s = track.children[1]; return s ? s.offsetLeft - track.children[0].offsetLeft : track.clientWidth; };
+    var cur = 0;
+    function tandai() {
+      var w = langkah() || 1; cur = Math.max(0, Math.min(n - 1, Math.round(track.scrollLeft / w)));
+      Array.prototype.forEach.call(dots.children, function (d, i) { d.className = i === cur ? "on" : ""; });
+    }
+    function ke(i, halus) { i = (i + n) % n; track.scrollTo({ left: i * langkah(), behavior: halus === false ? "auto" : "smooth" }); }
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(tandai); }, { passive: true });
+    $("#dekor-prev").addEventListener("click", function () { berhenti(); ke(cur - 1); });
+    $("#dekor-next").addEventListener("click", function () { berhenti(); ke(cur + 1); });
+    track.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") { e.preventDefault(); berhenti(); ke(cur + 1); } else if (e.key === "ArrowLeft") { e.preventDefault(); berhenti(); ke(cur - 1); } });
+    var timer = null, tampilan = false, kurang = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function mulai() { if (timer || kurang || !tampilan || n < 2) return; timer = setInterval(function () { ke(cur + 1); }, 4500); }
+    function berhenti() { if (timer) { clearInterval(timer); timer = null; } kurang = true; }   // sekali disentuh/diklik, tidak jalan otomatis lagi
+    ["pointerdown", "touchstart", "focusin"].forEach(function (ev) { $("#dekor-box").addEventListener(ev, berhenti, { passive: true }); });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { tampilan = es[0].isIntersecting; if (tampilan) mulai(); else if (timer) { clearInterval(timer); timer = null; } }, { threshold: .4 }).observe(sec);
+    tandai();
   })();
 
   /* ---------- video peragaan (Pro ke atas): data.video = { judul, sub, item: [{ src, poster, judul, ket }] }. Diunduh baru saat terlihat. ---------- */
